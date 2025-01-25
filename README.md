@@ -40,5 +40,5 @@ Go to the project directory
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/Yashraghuvans/FinFlow/blob/main/LICENSE)
 
