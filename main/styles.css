@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#nav{
+    background-color: red;
+    height: 145px;
+    gap: 45px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 150px;
+    justify-content: flex-start;
+}
+#nav img{
+    height: 75px;
+    border-radius: 50px;
+}
