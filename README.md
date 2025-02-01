@@ -1,5 +1,5 @@
 
-<img src="https://github.com/Yashraghuvans/FinFlow/blob/main/data/FinFlow.png" height="15%" width="100%">
+<img src="https://github.com/Yashraghuvans/FinFlow/blob/main/FinFlow.png?raw=true" height="15%" width="100%">
 
 
 # FinFlow
