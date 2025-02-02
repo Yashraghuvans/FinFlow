@@ -1,4 +1,7 @@
+"use client"
+import Link from 'next/link';
 import React from 'react';
+import EmiCalculate from './Component/EmiCalculate';
 
 const Main = () => {
   return (
@@ -17,8 +20,10 @@ const Main = () => {
           </h1>
           <h2 className='text-[35px] font-extrabold mt-[10px] mb-[20px] backdrop-blur-sm'>Welcome to FinFlow</h2>
           <p className='text-[20px] font-medium w-[45%] backdrop-blur-sm'>FinFlow empowers homebuyers with a streamlined platform to track loan disbursements, payments, and interest, providing crucial insights and reminders to optimize their journey.</p>
+          <Link href="/emi-calculate" className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+              Go to Calculator
+          </Link>
         </div>
-        
       </div>
     </>
   );
