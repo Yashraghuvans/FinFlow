@@ -9,8 +9,7 @@
 html,body{
   width: 100%;
   height: 100%;
-  /*background-image: url(https://cdn.pixabay.com/animation/2023/07/26/00/20/00-20-51-158_512.gif);*/
-  background-image:url(src/back.gif);
+  background-image: url(src/back.gif);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
