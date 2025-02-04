@@ -15,7 +15,9 @@ html,body{
   color: white;
 }
 
-
+::selection{
+  color:rgb(232, 174, 65);
+}
 
 
 
