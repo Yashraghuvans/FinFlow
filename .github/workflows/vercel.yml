@@ -1,0 +1,53 @@
+name: Vercel Deployment
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Vercel Login
+        run: vercel login --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel Production
+        if: github.ref == 'refs/heads/main'
+        id: production-deploy
+        run: vercel --prod
+
+      - name: Set Production Alias (if deployment successful)
+        if: github.ref == 'refs/heads/main' && steps.production-deploy.outcome == 'success'
+        run: vercel alias set https://fin-flow-nine.vercel.app ff-dev 
+
+      - name: Deploy to Vercel Preview
+        if: github.ref != 'refs/heads/main'
+        run: vercel --previews
+
+      - name: Display Vercel URL
+        if: always()
+        run: |
+          echo "Vercel Deployment URL:"
+          if: github.ref == 'refs/heads/main'
+            run: |
+              echo "Production: https://fin-flow-nine.vercel.app" # Replace with your production URL
+              if: steps.production-deploy.outcome == 'success'
+                echo "Alias: live.fin-flow-nine.vercel.app" # Or your alias URL if it's a path like /live
+              else
+                echo "Production deployment failed, alias not set."
+          else
+            run: echo "Preview: $(vercel url)"
+
+      - name: Vercel Logout
+        if: always()
+        run: vercel logout
