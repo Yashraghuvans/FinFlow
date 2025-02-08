@@ -22,8 +22,7 @@ const SignIn= () => {
   return (
     <div className='w-full  h-full flex '>
       <div className='h-full w-[50%] bg-gray-600  text-white text-[40px] font-semibold '>
-        <img src='favicon.ico' className='absolute top-[25%] left-[10%] h-96 w-96 rounded-lg mix-blend-multiply' />
-        <h2 className='absolute left-[10%] top-[10%]'>Welcome To FinFlow</h2>
+        <img src='favicon.ico' className='absolute top-[125%] left-[10%] h-96 w-96 rounded-lg mix-blend-multiply' />
       </div>
 
 
