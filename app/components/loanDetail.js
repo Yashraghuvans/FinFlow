@@ -1,21 +1,21 @@
 "use client"
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const LoanDetail = () => {
-  const [principal, setPrincipal] = useState();
-  const [rate, setRate] = useState();
-  const [time, setTime] = useState();
-  const [emi, setEmi] = useState();
+  const [principal, setPrincipal] = useState(""); 
+  const [rate, setRate] = useState("");
+  const [time, setTime] = useState("");
 
-  const calculate = () => {
-    const monthlyRate = rate / 100 / 12;
-    const totalMonths = time * 12;
-    const emiValue = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-    setEmi(emiValue.toFixed(2));
+  const handleClick = () => {
+      if (!principal || !rate || !time) {
+          alert("Please fill in all fields.");
+          return; 
+      }
   };
 
   return (
-    <div className='h-screen w-full bg-[#363e4d] flex items-center justify-center absolute text-black'>
+    <div id='main' className='h-screen w-screen flex items-center justify-center absolute text-black'>
       <div className='flex flex-col items-center justify-center h-screen w-full gap-10'>
         <input
           type='number'
@@ -38,12 +38,20 @@ const LoanDetail = () => {
           onChange={(e) => setTime(e.target.value)}
           className='p-2 rounded-md'
         />
-        <button
-          onClick={calculate}
-          className='p-5 bg-gray-500 rounded-md text-[20px] text-white'
-        >
-          Calculate
-        </button>
+
+        <Link href={{
+          pathname: '/page1',
+          query: {
+            principal: principal,
+            rate: rate,
+            time: time,
+          },
+        }}>
+          <button onClick={handleClick} className='p-5 bg-green-600 rounded-md text-[20px] text-white hover:bg-green-700 transition duration-500'>
+            Calculate
+          </button>
+        </Link>
+
       </div>
     </div>
   );
