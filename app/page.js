@@ -1,19 +1,18 @@
+//main page
 "use client"
-import React from 'react';
-import NavBar from './components/navbar';
-import Main from './components/main';
-import SignIn from './components/signIn';
+import React from 'react'
+import NavBar from './components/navbar'
+import Main from './components/main'
 
 
-const Page = () => {
 
+const page = () => {
   return (
     <>
-    <NavBar/>
-    <Main/>
-    <SignIn/>
+      <NavBar/>
+      <Main/>
     </>
-  );
-};
+  )
+}
 
-export default Page;
+export default page
