@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import React from 'react';
+import NavBar from '../components/navbar';
 const About = () => {
     const tech = [
         { name: 'C', url: 'https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white' },
@@ -30,6 +31,7 @@ const About = () => {
 
     return (
         <>
+        <NavBar />
             <div className="about-area pt-20 bg-black/70 h-screen w-screen flex items-center justify-center absolute text-white backdrop-blur-sm">
                 <div className="container mx-auto">
                     <div className="flex flex-wrap">
