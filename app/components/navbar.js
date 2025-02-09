@@ -11,7 +11,7 @@ const NavBar = () => {
         <Link href="/">Home</Link>
         </h4>
       <h4 className='uppercase font-medium'>
-        <Link href="/">About</Link>
+        <Link href="/about">About</Link>
         </h4>
       <h4 className='uppercase font-medium'>
         <Link href='/loanDetail'>Features</Link>
