@@ -377,6 +377,40 @@ img, video {
   display: none;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (width >= 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (width >= 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (width >= 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (width >= 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (width >= 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .fixed {
   position: fixed;
 }
@@ -393,6 +427,18 @@ img, video {
   left: 10%;
 }
 
+.left-\[35\%\] {
+  left: 35%;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.top-1\/4 {
+  top: 25%;
+}
+
 .top-\[25\%\] {
   top: 25%;
 }
@@ -401,13 +447,30 @@ img, video {
   z-index: 99;
 }
 
+.m-3 {
+  margin: .75rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
 
+.mb-2 {
+  margin-bottom: .5rem;
+}
+
 .mb-\[20px\] {
   margin-bottom: 20px;
+}
+
+.mr-2 {
+  margin-right: .5rem;
 }
 
 .mt-\[10px\] {
@@ -486,6 +549,10 @@ img, video {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -539,6 +606,10 @@ img, video {
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
 }
 
+.border-white\/50 {
+  border-color: #ffffff80;
+}
+
 .bg-black\/70 {
   background-color: #000000b3;
 }
@@ -575,9 +646,18 @@ img, video {
   padding: 9rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .px-\[150px\] {
   padding-left: 150px;
   padding-right: 150px;
+}
+
+.pt-20 {
+  padding-top: 5rem;
 }
 
 .text-center {
@@ -594,6 +674,11 @@ img, video {
   line-height: 2.25rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
 .text-\[130px\] {
   font-size: 130px;
 }
@@ -608,6 +693,11 @@ img, video {
 
 .text-\[40px\] {
   font-size: 40px;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-xl {
@@ -692,6 +782,24 @@ html, body {
 .hover\:bg-green-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+
+@media (width >= 1024px) {
+  .lg\:w-4\/12 {
+    width: 33.3333%;
+  }
+
+  .lg\:w-6\/12 {
+    width: 50%;
+  }
+
+  .lg\:pl-16 {
+    padding-left: 4rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0;
+  }
 }
 
 
