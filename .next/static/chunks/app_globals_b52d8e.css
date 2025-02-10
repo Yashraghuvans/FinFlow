@@ -347,6 +347,10 @@ img, video {
   position: relative;
 }
 
+.left-0 {
+  left: 0;
+}
+
 .left-\[10\%\] {
   left: 10%;
 }
@@ -359,12 +363,32 @@ img, video {
   right: 0;
 }
 
+.top-0 {
+  top: 0;
+}
+
 .top-1\/4 {
   top: 25%;
 }
 
 .top-\[25\%\] {
   top: 25%;
+}
+
+.left-\[\] {
+  left: ;
+}
+
+.left-\[50\%\] {
+  left: 50%;
+}
+
+.left-\[100\%\] {
+  left: 100%;
+}
+
+.left-\[150\%\] {
+  left: 150%;
 }
 
 .z-\[99\] {
@@ -389,36 +413,36 @@ img, video {
   margin-bottom: .5rem;
 }
 
-.mb-\[20px\] {
-  margin-bottom: 20px;
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .mr-2 {
   margin-right: .5rem;
 }
 
-.mt-\[10px\] {
-  margin-top: 10px;
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .flex {
   display: flex;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-96 {
   height: 24rem;
 }
 
-.h-\[145px\] {
-  height: 145px;
-}
-
 .h-\[50\%\] {
   height: 50%;
-}
-
-.h-\[75px\] {
-  height: 75px;
 }
 
 .h-full {
@@ -429,16 +453,40 @@ img, video {
   height: 100vh;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-\[\] {
+  height: ;
+}
+
+.h-\[20\%\] {
+  height: 20%;
+}
+
+.h-\[20px\] {
+  height: 20px;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
 .w-96 {
   width: 24rem;
 }
 
 .w-\[100\%\] {
   width: 100%;
-}
-
-.w-\[45\%\] {
-  width: 45%;
 }
 
 .w-\[50\%\] {
@@ -465,6 +513,14 @@ img, video {
   width: 100vw;
 }
 
+.w-auto {
+  width: auto;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -481,12 +537,12 @@ img, video {
   align-items: center;
 }
 
-.justify-start {
-  justify-content: flex-start;
-}
-
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-10 {
@@ -501,12 +557,10 @@ img, video {
   gap: 1.25rem;
 }
 
-.gap-\[50px\] {
-  gap: 50px;
-}
-
-.rounded-\[50px\] {
-  border-radius: 50px;
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .rounded-full {
@@ -536,6 +590,10 @@ img, video {
 
 .bg-black\/70 {
   background-color: #000000b3;
+}
+
+.bg-black\/80 {
+  background-color: #000c;
 }
 
 .bg-gray-600 {
@@ -575,13 +633,17 @@ img, video {
   padding-right: 1rem;
 }
 
-.px-\[150px\] {
-  padding-left: 150px;
-  padding-right: 150px;
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pt-20 {
   padding-top: 5rem;
+}
+
+.pt-0 {
+  padding-top: 0;
 }
 
 .text-center {
@@ -598,21 +660,18 @@ img, video {
   line-height: 2.25rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
 }
 
-.text-\[130px\] {
-  font-size: 130px;
-}
-
 .text-\[20px\] {
   font-size: 20px;
-}
-
-.text-\[35px\] {
-  font-size: 35px;
 }
 
 .text-\[40px\] {
@@ -643,6 +702,10 @@ img, video {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.leading-tight {
+  line-height: 1.25;
 }
 
 .text-black {
@@ -688,10 +751,28 @@ img, video {
 html, body {
   width: 100%;
   height: 100%;
+  color: #fff;
+}
+
+body {
   background-image: url("../media/back.368ccf45.gif");
   background-repeat: no-repeat;
   background-size: cover;
-  color: #fff;
+  background-position: center;
+}
+
+@media (width <= 768px) {
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (width <= 480px) {
+  body {
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 ::selection {
@@ -708,7 +789,126 @@ html, body {
   background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:text-blue-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
+
+@media (width >= 640px) {
+  .sm\:mb-6 {
+    margin-bottom: 1.5rem;
+  }
+
+  .sm\:mt-6 {
+    margin-top: 1.5rem;
+  }
+
+  .sm\:h-10 {
+    height: 2.5rem;
+  }
+
+  .sm\:w-3\/4 {
+    width: 75%;
+  }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .sm\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .sm\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media (width >= 768px) {
+  .md\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
+
+  .md\:w-2\/3 {
+    width: 66.6667%;
+  }
+
+  .md\:space-x-6 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .md\:px-0 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
 @media (width >= 1024px) {
+  .lg\:left-\[unset\] {
+    left: unset;
+  }
+
+  .lg\:mb-\[20px\] {
+    margin-bottom: 20px;
+  }
+
+  .lg\:mt-\[10px\] {
+    margin-top: 10px;
+  }
+
+  .lg\:mb-0 {
+    margin-bottom: 0;
+  }
+
   .lg\:w-4\/12 {
     width: 33.3333%;
   }
@@ -717,12 +917,55 @@ html, body {
     width: 50%;
   }
 
+  .lg\:w-\[45\%\] {
+    width: 45%;
+  }
+
+  .lg\:w-8\/12 {
+    width: 66.6667%;
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
+  .lg\:justify-start {
+    justify-content: flex-start;
+  }
+
+  .lg\:space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2rem * var(--tw-space-x-reverse));
+    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .lg\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
   .lg\:pl-16 {
     padding-left: 4rem;
   }
 
   .lg\:pt-0 {
     padding-top: 0;
+  }
+
+  .lg\:text-left {
+    text-align: left;
+  }
+
+  .lg\:text-\[130px\] {
+    font-size: 130px;
+  }
+
+  .lg\:text-\[20px\] {
+    font-size: 20px;
+  }
+
+  .lg\:text-\[35px\] {
+    font-size: 35px;
   }
 }
 
