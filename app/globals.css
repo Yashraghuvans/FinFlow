@@ -2,23 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   margin: 0;
   padding: 0;
 }
-html,body{
+
+html,
+body {
   width: 100%;
   height: 100%;
-  background-image: url(src/back.gif);
-  background-repeat: no-repeat;
-  background-size: cover;
   color: white;
 }
 
-::selection{
-  color:rgb(232, 174, 65);
+body { 
+  background-image: url(src/back.gif);
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center;
 }
 
 
+@media (max-width: 768px) { 
+  body {
+    background-size: cover; 
+    background-position: center;
+  }
+}
+
+@media (max-width: 480px) { 
+  body {
+    background-size: cover; 
+    background-position: center; 
+  }
+}
 
 
+::selection {
+  color: rgb(232, 174, 65);
+}
