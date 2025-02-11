@@ -239,39 +239,50 @@ const About = ()=>{
                                         lineNumber: 33,
                                         columnNumber: 33
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "font-ubuntu text-base sm:text-lg text-white",
-                                        children: "I am always eager to learn new things and explore the ever-evolving world of technology. My goal is to become a proficient and versatile software engineer who can contribute to the advancement and improvement of society."
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {
+                                        className: "border-b-2 border-white m-5"
                                     }, void 0, false, {
                                         fileName: "[project]/app/about/page.js",
-                                        lineNumber: 43,
-                                        columnNumber: 33
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                        fileName: "[project]/app/about/page.js",
-                                        lineNumber: 46,
+                                        lineNumber: 45,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex justify-center lg:justify-start",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                            href: "https://www.linkedin.com/in/yash-raghuvanshi-a14361287",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                className: "bg-green-500 p-3 hover:bg-green-600 transition duration-500 relative left-[150%]",
-                                                children: "Let's connect"
+                                        className: "flex justify-center lg:justify-center gap-6 text-xl sm:text-2xl font-semibold",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: "https://www.linkedin.com/in/yash-raghuvanshi-a14361287",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    className: "bg-blue-500 p-3 hover:bg-blue-600 transition duration-500 ",
+                                                    children: "Linkedin"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/about/page.js",
+                                                    lineNumber: 48,
+                                                    columnNumber: 41
+                                                }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/about/page.js",
-                                                lineNumber: 49,
-                                                columnNumber: 41
+                                                lineNumber: 47,
+                                                columnNumber: 37
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: "https://github.com/Yashraghuvans",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    className: "bg-black/50 p-3 hover:bg-black/80 transition duration-500 ",
+                                                    children: "GitHub"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/about/page.js",
+                                                    lineNumber: 51,
+                                                    columnNumber: 37
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/about/page.js",
+                                                lineNumber: 50,
+                                                columnNumber: 37
                                             }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/about/page.js",
-                                            lineNumber: 48,
-                                            columnNumber: 37
-                                        }, this)
-                                    }, void 0, false, {
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/app/about/page.js",
-                                        lineNumber: 47,
+                                        lineNumber: 46,
                                         columnNumber: 33
                                     }, this)
                                 ]

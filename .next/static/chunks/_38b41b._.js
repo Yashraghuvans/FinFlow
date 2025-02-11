@@ -18,90 +18,78 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 const NavBar = ()=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
         className: "fixed top-0 left-0 w-full z-[99] bg-black/80 backdrop-blur-sm",
-        children: [
-            " ",
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "container mx-auto px-4 md:px-8 lg:px-12 py-4 flex items-center justify-between",
-                children: [
-                    " ",
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                        href: "/",
-                        className: "flex items-center",
-                        children: [
-                            " ",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: "favicon.ico",
-                                alt: "FinFlow Logo",
-                                className: "h-12 w-12 rounded-full"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/navbar.js",
-                                lineNumber: 10,
-                                columnNumber: 11
-                            }, this),
-                            " "
-                        ]
-                    }, void 0, true, {
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "container mx-auto px-4 md:px-8 lg:px-12 py-4 flex items-center justify-between",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    href: "/",
+                    className: "flex items-center",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        src: "favicon.ico",
+                        alt: "FinFlow Logo",
+                        className: "h-12 w-12 rounded-full"
+                    }, void 0, false, {
                         fileName: "[project]/app/components/navbar.js",
-                        lineNumber: 9,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex space-x-4 md:space-x-6 lg:space-x-8",
-                        children: [
-                            " ",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/",
-                                className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
-                                children: [
-                                    " ",
-                                    "Home"
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/components/navbar.js",
-                                lineNumber: 14,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/about",
-                                className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
-                                children: "About"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/navbar.js",
-                                lineNumber: 17,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/loanDetail",
-                                className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
-                                children: "Features"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/navbar.js",
-                                lineNumber: 20,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/signin",
-                                className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
-                                children: "SignUp"
-                            }, void 0, false, {
-                                fileName: "[project]/app/components/navbar.js",
-                                lineNumber: 23,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/components/navbar.js",
-                        lineNumber: 13,
-                        columnNumber: 9
+                        lineNumber: 10,
+                        columnNumber: 11
                     }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/navbar.js",
-                lineNumber: 8,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+                }, void 0, false, {
+                    fileName: "[project]/app/components/navbar.js",
+                    lineNumber: 9,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex space-x-4 md:space-x-6 lg:space-x-8",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/",
+                            className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
+                            children: "Home"
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/navbar.js",
+                            lineNumber: 14,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/about",
+                            className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
+                            children: "About"
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/navbar.js",
+                            lineNumber: 17,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/loanDetail",
+                            className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
+                            children: "Features"
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/navbar.js",
+                            lineNumber: 20,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/signin",
+                            className: "text-base md:text-lg font-medium uppercase hover:text-blue-500 transition",
+                            children: "SignUp"
+                        }, void 0, false, {
+                            fileName: "[project]/app/components/navbar.js",
+                            lineNumber: 23,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/components/navbar.js",
+                    lineNumber: 13,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/components/navbar.js",
+            lineNumber: 8,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/app/components/navbar.js",
         lineNumber: 7,
         columnNumber: 5
@@ -120,7 +108,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
-//loan detail page
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
@@ -167,151 +154,152 @@ const LoanDetail = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/loanDetail/page.js",
-                lineNumber: 40,
-                columnNumber: 7
+                lineNumber: 38,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 id: "main",
-                className: "h-screen w-screen flex items-center justify-center absolute text-black bg-black/70 backdrop-blur-sm",
+                className: "min-h-screen w-full flex flex-col lg:flex-row items-center justify-center relative text-black bg-black/70 backdrop-blur-sm px-4 md:px-0",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "h-screen w-[80%] text-white flex flex-col gap-5 justify-center items-center text-2xl",
+                        className: "w-full lg:w-[50%] flex flex-col gap-5 justify-center items-center text-2xl text-white py-8 lg:py-0",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                             src: "favicon.ico",
-                            className: "h-[50%] w-[60%] rounded-full mix-blend-multiply"
+                            className: "h-48 w-auto lg:h-[50%] lg:w-[60%] rounded-full mix-blend-multiply",
+                            alt: "Logo"
                         }, void 0, false, {
                             fileName: "[project]/app/loanDetail/page.js",
-                            lineNumber: 44,
-                            columnNumber: 11
+                            lineNumber: 41,
+                            columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/loanDetail/page.js",
-                        lineNumber: 42,
-                        columnNumber: 9
+                        lineNumber: 40,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex flex-col items-center justify-center h-screen w-full gap-10 ",
+                        className: "w-full lg:w-[50%] flex flex-col items-center justify-center py-8 lg:py-0 gap-4 lg:gap-10",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                 className: "text-white text-2xl font-semibold border-b-2 border-white",
                                 children: "Kindly Enter Your Loan Details"
                             }, void 0, false, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 47,
-                                columnNumber: 11
+                                lineNumber: 44,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                 type: "text",
                                 placeholder: "Bank Name",
                                 value: bank,
                                 onChange: (e)=>setbank(e.target.value),
-                                className: "p-2 rounded-md",
+                                className: "p-2 rounded-md w-full",
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 48,
-                                columnNumber: 11
+                                lineNumber: 45,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                 type: "text",
                                 placeholder: "Location",
-                                className: "p-2 rounded-md"
+                                className: "p-2 rounded-md w-full"
                             }, void 0, false, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 56,
-                                columnNumber: 11
+                                lineNumber: 53,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex flex-row gap-5",
+                                className: "flex flex-col sm:flex-row gap-4 sm:gap-5 w-full px-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "number",
                                         placeholder: "Down Payment",
                                         value: downpay,
                                         onChange: (e)=>setdownpay(e.target.value),
-                                        className: "p-2 rounded-md",
+                                        className: "p-2 rounded-md w-full",
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/loanDetail/page.js",
-                                        lineNumber: 63,
-                                        columnNumber: 13
+                                        lineNumber: 59,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "number",
                                         placeholder: "Principal Amount",
                                         value: principal,
                                         onChange: (e)=>setPrincipal(e.target.value),
-                                        className: "p-2 rounded-md",
+                                        className: "p-2 rounded-md w-full",
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/loanDetail/page.js",
-                                        lineNumber: 71,
-                                        columnNumber: 13
+                                        lineNumber: 67,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 61,
-                                columnNumber: 11
+                                lineNumber: 58,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex flex-row gap-5",
+                                className: "flex flex-col sm:flex-row gap-4 sm:gap-5 w-full px-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "number",
                                         placeholder: "Interest Rate (%)",
                                         value: rate,
                                         onChange: (e)=>setRate(e.target.value),
-                                        className: "p-2 rounded-md",
+                                        className: "p-2 rounded-md w-full",
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/loanDetail/page.js",
-                                        lineNumber: 82,
-                                        columnNumber: 13
+                                        lineNumber: 77,
+                                        columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "number",
                                         placeholder: "Time Period (years)",
                                         value: time,
                                         onChange: (e)=>setTime(e.target.value),
-                                        className: "p-2 rounded-md",
+                                        className: "p-2 rounded-md w-full",
                                         required: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/loanDetail/page.js",
-                                        lineNumber: 90,
-                                        columnNumber: 13
+                                        lineNumber: 85,
+                                        columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 80,
-                                columnNumber: 11
+                                lineNumber: 76,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleClick,
-                                className: "p-3 w-[55%] bg-green-600 rounded-md text-[20px] text-white hover:bg-green-700 transition duration-500",
+                                className: "p-3 w-full sm:w-[55%] bg-green-600 rounded-md text-[20px] text-white hover:bg-green-700 transition duration-500",
                                 children: "Calculate"
                             }, void 0, false, {
                                 fileName: "[project]/app/loanDetail/page.js",
-                                lineNumber: 100,
-                                columnNumber: 11
+                                lineNumber: 95,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/loanDetail/page.js",
-                        lineNumber: 46,
-                        columnNumber: 9
+                        lineNumber: 43,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/loanDetail/page.js",
-                lineNumber: 41,
-                columnNumber: 7
+                lineNumber: 39,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ToastContainer"], {}, void 0, false, {
                 fileName: "[project]/app/loanDetail/page.js",
-                lineNumber: 108,
-                columnNumber: 7
+                lineNumber: 103,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true);
