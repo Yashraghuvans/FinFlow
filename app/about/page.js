@@ -40,13 +40,15 @@ const About = () => {
                                         />
                                     ))}
                                 </div>
-                                <p className="font-ubuntu text-base sm:text-lg text-white">
-                                    I am always eager to learn new things and explore the ever-evolving world of technology. My goal is to become a proficient and versatile software engineer who can contribute to the advancement and improvement of society.
-                                </p>
-                                <br />
-                                <div className="flex justify-center lg:justify-start">
+                                
+                                
+                                <hr className='border-b-2 border-white m-5' />
+                                <div className="flex justify-center lg:justify-center gap-6 text-xl sm:text-2xl font-semibold">
                                     <Link href="https://www.linkedin.com/in/yash-raghuvanshi-a14361287">
-                                        <button className='bg-green-500 p-3 hover:bg-green-600 transition duration-500 relative left-[150%]'>Let's connect</button>
+                                        <button className='bg-blue-500 p-3 hover:bg-blue-600 transition duration-500 '>Linkedin</button>
+                                    </Link>
+                                    <Link href="https://github.com/Yashraghuvans">
+                                    <button className='bg-black/50 p-3 hover:bg-black/80 transition duration-500 '>GitHub</button>
                                     </Link>
                                 </div>
                             </div>
