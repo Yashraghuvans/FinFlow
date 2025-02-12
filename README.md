@@ -4,6 +4,8 @@
 
 # FinFlow
 
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=FinFlow&label=Page%20views&color=0e75b6&style=flat" alt="yashraghuvans" /> </p>
+
 The app will help users track loan disbursements, payments to builders, and interest accruals. Additionally, it will remind users weekly or monthly to update their financial records. The app can also visualize trends, outstanding balances, and interest growth while offering insights to optimize payments.
 
 ## Link : 
