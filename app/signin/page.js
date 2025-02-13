@@ -35,7 +35,7 @@ const SignIn = () => {
                         <input type='text' placeholder='Name' className='p-3 text-white bg-gray-900 border-b-2 border-white w-full' /> 
                         <input type='email' placeholder='Email' className='p-3 text-white bg-gray-900 border-b-2 border-white w-full' /> 
                         <input type='password' placeholder='Password' className='p-3 text-white bg-gray-900 border-b-2 border-white w-full' /> 
-                        <Link href='/loanDetail'>
+                        <Link href='/dashboard'>
                             <button className='text-white bg-green-500 p-3 w-full my-5 hover:bg-green-600 transition duration-600' onClick={notify}>Continue</button> 
                         </Link>
                         <h3 className='text-white text-xl text-center'>OR</h3>
