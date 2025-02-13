@@ -11,7 +11,7 @@
     "static/chunks/node_modules_react-icons_fa6_index_mjs_00e856._.js",
     "static/chunks/node_modules_react-icons_lib_74ccc9._.js",
     "static/chunks/node_modules_230cb9._.js",
-    "static/chunks/app_e9cb91._.js",
+    "static/chunks/app_658a12._.js",
     "static/chunks/node_modules_react-toastify_dist_ReactToastify_391de2.css"
   ],
   "source": "dynamic"
