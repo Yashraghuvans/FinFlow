@@ -1,17 +1,31 @@
 "use client"
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBar from './components/navbar'
 import Main from './components/main'
+import PreLoader from './components/preloader'
 
+const Page = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); 
 
-const page = () => {
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
-      <NavBar/>
-      <Main/>
+      <PreLoader isVisible={isLoading} />
+      {!isLoading && (
+        <>
+          <NavBar />
+          <Main />
+        </>
+      )}
     </>
   )
 }
 
-export default page
+export default Page
