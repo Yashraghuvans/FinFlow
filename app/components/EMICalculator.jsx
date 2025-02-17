@@ -70,7 +70,7 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                     <p className="mb-2">Principal Amount: <span className="font-semibold text-white">₹{loanParams.principalAmount ? loanParams.principalAmount.toFixed(2) : 'N/A'}</span></p>
                     <p className="mb-2">Interest Rate: <span className="font-semibold text-white">{loanParams.annualInterestRate ? loanParams.annualInterestRate.toFixed(2) : 'N/A'}%</span></p>
                     <p className="mb-2">Loan Tenure: <span className="font-semibold text-white">{loanParams.loanTenureYears ? loanParams.loanTenureYears.toFixed(2) : 'N/A'} Years</span></p>
-                    <p className="mb-2">Pre Payment: <span className="font-semibold text-white">{loanParams.prePayment ? loanParams.prePayment.toFixed(2) : 'N/A'} </span></p>
+                    <p className="mb-2">Pre Payment: <span className="font-semibold text-white">₹{loanParams.prePayment ? loanParams.prePayment.toFixed(2) : 'N/A'} </span></p>
                     <p className="mb-2">Bank Fees: <span className="font-semibold text-white">₹{processingFees ? processingFees.toFixed(2) : 'N/A'}</span></p>
                     {emiValue !== null ? (
                         <div className="emi-result mt-4 p-4 bg-green-700 bg-opacity-75 rounded-md">
