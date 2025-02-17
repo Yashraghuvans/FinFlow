@@ -7,6 +7,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
     const [interest, setInterest] = useState('');
     const [principal, setPrincipal] = useState('');
     const [downPayment, setDownPayment] = useState('');
+    const [prePayment, setprePayment] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +18,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
             interest: parseFloat(interest),
             principal: parseFloat(principal),
             downPayment: parseFloat(downPayment),
+            prePayment: parseFloat(prePayment),
         };
         onLoanSubmit(newLoan);
         setBankName('');
@@ -25,6 +27,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
         setInterest('');
         setPrincipal('');
         setDownPayment('');
+        setprePayment('');
     };
 
     const handleCalculateClick = (e) => {
@@ -34,6 +37,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
             principalAmount: parseFloat(principal) - parseFloat(downPayment || 0),
             annualInterestRate: parseFloat(interest),
             loanTenureYears: parseFloat(timePeriod),
+            prePayment: parseFloat(prePayment || 0),
         };
         onCalculateEMI(loanParams);
     };
@@ -50,7 +54,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         value={bankName}
                         onChange={(e) => setBankName(e.target.value)}
                         required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Bank Name"
                     />
                 </div>
@@ -62,7 +66,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Location"
                     />
                 </div>
@@ -74,7 +78,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         value={timePeriod}
                         onChange={(e) => setTimePeriod(e.target.value)}
                         required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Time Period"
                     />
                 </div>
@@ -86,7 +90,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         value={interest}
                         onChange={(e) => setInterest(e.target.value)}
                         required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Interest Rate"
                     />
                 </div>
@@ -98,7 +102,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         value={principal}
                         onChange={(e) => setPrincipal(e.target.value)}
                         required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Principal Amount"
                     />
                 </div>
@@ -109,8 +113,19 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                         id="downPayment"
                         value={downPayment}
                         onChange={(e) => setDownPayment(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Down Payment"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="downPayment" className="block text-gray-300 text-sm font-bold mb-2">Down Payment:</label>
+                    <input
+                        type="number"
+                        id="prePayment"
+                        value={prePayment}
+                        onChange={(e) => setprePayment(e.target.value)}
+                        className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Pre Payment"
                     />
                 </div>
 
