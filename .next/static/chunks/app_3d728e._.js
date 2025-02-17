@@ -16,23 +16,71 @@ var _s = __turbopack_refresh__.signature();
 function EMICalculator({ loanParams, setCalculatedEMI }) {
     _s();
     const [emiValue, setEmiValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [processingFees, setProcessingFees] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const bankFees = {
+        SBI: {
+            percentage: 0.35,
+            max: 10000
+        },
+        HDFC: {
+            percentage: 0.50,
+            min: 3000
+        },
+        Axis: {
+            percentage: 1,
+            min: 10000
+        },
+        ICICI: {
+            percentage: 1
+        },
+        PNB: {
+            percentage: 0.35,
+            min: 2500,
+            max: 15000,
+            docCharges: 1350
+        },
+        LIC: {
+            percentage: 1
+        },
+        Citibank: {
+            percentage: 0.40
+        }
+    };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "EMICalculator.useEffect": ()=>{
             if (loanParams) {
-                const { principalAmount, annualInterestRate, loanTenureYears } = loanParams;
-                if (principalAmount && annualInterestRate && loanTenureYears) {
+                const { principalAmount, annualInterestRate, loanTenureYears, prePayment, bankName } = loanParams;
+                if (principalAmount && annualInterestRate && loanTenureYears && prePayment && bankName) {
                     const monthlyInterestRate = annualInterestRate / 12 / 100;
                     const numberOfMonths = loanTenureYears * 12;
                     const emi = principalAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfMonths) / (Math.pow(1 + monthlyInterestRate, numberOfMonths) - 1);
-                    setEmiValue(emi.toFixed(2));
-                    setCalculatedEMI(emi.toFixed(2));
+                    let fee = 0;
+                    const bankData = bankFees[bankName];
+                    if (bankData) {
+                        fee = principalAmount * bankData.percentage / 100;
+                        if (bankData.max && fee > bankData.max) {
+                            fee = bankData.max;
+                        }
+                        if (bankData.min && fee < bankData.min) {
+                            fee = bankData.min;
+                        }
+                        if (bankData.docCharges) {
+                            fee += bankData.docCharges;
+                        }
+                    }
+                    setProcessingFees(fee);
+                    const totalEmi = emi + fee / numberOfMonths;
+                    setEmiValue(totalEmi.toFixed(2));
+                    setCalculatedEMI(totalEmi.toFixed(2));
                 } else {
                     setEmiValue(null);
                     setCalculatedEMI(null);
+                    setProcessingFees(0);
                 }
             } else {
                 setEmiValue(null);
                 setCalculatedEMI(null);
+                setProcessingFees(0);
             }
         }
     }["EMICalculator.useEffect"], [
@@ -47,7 +95,7 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                 children: "EMI Calculator"
             }, void 0, false, {
                 fileName: "[project]/app/components/EMICalculator.jsx",
-                lineNumber: 32,
+                lineNumber: 67,
                 columnNumber: 13
             }, this),
             loanParams ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -65,13 +113,13 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/EMICalculator.jsx",
-                                lineNumber: 35,
+                                lineNumber: 70,
                                 columnNumber: 59
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/EMICalculator.jsx",
-                        lineNumber: 35,
+                        lineNumber: 70,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -86,13 +134,13 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/EMICalculator.jsx",
-                                lineNumber: 36,
+                                lineNumber: 71,
                                 columnNumber: 56
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/EMICalculator.jsx",
-                        lineNumber: 36,
+                        lineNumber: 71,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -107,13 +155,55 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/EMICalculator.jsx",
-                                lineNumber: 37,
+                                lineNumber: 72,
                                 columnNumber: 54
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/EMICalculator.jsx",
-                        lineNumber: 37,
+                        lineNumber: 72,
+                        columnNumber: 21
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "mb-2",
+                        children: [
+                            "Pre Payment: ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "font-semibold text-white",
+                                children: [
+                                    loanParams.prePayment ? loanParams.prePayment.toFixed(2) : 'N/A',
+                                    " "
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/components/EMICalculator.jsx",
+                                lineNumber: 73,
+                                columnNumber: 54
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/EMICalculator.jsx",
+                        lineNumber: 73,
+                        columnNumber: 21
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "mb-2",
+                        children: [
+                            "Bank Fees: ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "font-semibold text-white",
+                                children: [
+                                    "₹",
+                                    processingFees ? processingFees.toFixed(2) : 'N/A'
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/components/EMICalculator.jsx",
+                                lineNumber: 74,
+                                columnNumber: 52
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/EMICalculator.jsx",
+                        lineNumber: 74,
                         columnNumber: 21
                     }, this),
                     emiValue !== null ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -130,48 +220,48 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/EMICalculator.jsx",
-                                    lineNumber: 40,
+                                    lineNumber: 77,
                                     columnNumber: 90
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/EMICalculator.jsx",
-                            lineNumber: 40,
+                            lineNumber: 77,
                             columnNumber: 29
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/EMICalculator.jsx",
-                        lineNumber: 39,
+                        lineNumber: 76,
                         columnNumber: 25
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-gray-400",
                         children: "Enter loan details to calculate EMI."
                     }, void 0, false, {
                         fileName: "[project]/app/components/EMICalculator.jsx",
-                        lineNumber: 43,
+                        lineNumber: 80,
                         columnNumber: 25
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/EMICalculator.jsx",
-                lineNumber: 34,
+                lineNumber: 69,
                 columnNumber: 17
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "text-gray-400",
                 children: "Enter loan parameters for calculation."
             }, void 0, false, {
                 fileName: "[project]/app/components/EMICalculator.jsx",
-                lineNumber: 47,
+                lineNumber: 84,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/EMICalculator.jsx",
-        lineNumber: 31,
+        lineNumber: 66,
         columnNumber: 9
     }, this);
 }
-_s(EMICalculator, "oLqkSBWdqunxP4gW9FUFrWamsfc=");
+_s(EMICalculator, "UNic6zRIDWdEr0zqHa2fcw+rjH8=");
 _c = EMICalculator;
 const __TURBOPACK__default__export__ = EMICalculator;
 var _c;
@@ -532,6 +622,17 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
     const [interest, setInterest] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [principal, setPrincipal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [downPayment, setDownPayment] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [prePayment, setprePayment] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const bankNames = [
+        'SBI',
+        'HDFC',
+        'Axis',
+        'ICICI',
+        'PNB',
+        'LIC',
+        'Citibank',
+        'Others'
+    ];
     const handleSubmit = (e)=>{
         e.preventDefault();
         const newLoan = {
@@ -540,7 +641,8 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
             timePeriod: parseFloat(timePeriod),
             interest: parseFloat(interest),
             principal: parseFloat(principal),
-            downPayment: parseFloat(downPayment)
+            downPayment: parseFloat(downPayment),
+            prePayment: parseFloat(prePayment)
         };
         onLoanSubmit(newLoan);
         setBankName('');
@@ -549,13 +651,16 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
         setInterest('');
         setPrincipal('');
         setDownPayment('');
+        setprePayment('');
     };
     const handleCalculateClick = (e)=>{
         e.preventDefault();
         const loanParams = {
             principalAmount: parseFloat(principal) - parseFloat(downPayment || 0),
             annualInterestRate: parseFloat(interest),
-            loanTenureYears: parseFloat(timePeriod)
+            loanTenureYears: parseFloat(timePeriod),
+            prePayment: parseFloat(prePayment || 0),
+            bankName: bankName
         };
         onCalculateEMI(loanParams);
     };
@@ -567,7 +672,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                 children: "Enter Loan Details"
             }, void 0, false, {
                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                lineNumber: 43,
+                lineNumber: 49,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -582,27 +687,43 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Bank Name:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 46,
-                                columnNumber: 21
+                                lineNumber: 52,
+                                columnNumber: 17
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                type: "text",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 id: "bankName",
                                 value: bankName,
                                 onChange: (e)=>setBankName(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
-                                placeholder: "Bank Name"
-                            }, void 0, false, {
+                                className: "shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                        value: "",
+                                        children: "Select Bank"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/LoanInputForm.jsx",
+                                        lineNumber: 60,
+                                        columnNumber: 21
+                                    }, this),
+                                    bankNames.map((bank)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: bank,
+                                            children: bank
+                                        }, bank, false, {
+                                            fileName: "[project]/app/components/LoanInputForm.jsx",
+                                            lineNumber: 62,
+                                            columnNumber: 25
+                                        }, this))
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 47,
-                                columnNumber: 21
+                                lineNumber: 53,
+                                columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 45,
-                        columnNumber: 17
+                        lineNumber: 51,
+                        columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mb-4",
@@ -613,7 +734,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Location:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 58,
+                                lineNumber: 69,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -622,17 +743,17 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 value: location,
                                 onChange: (e)=>setLocation(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
                                 placeholder: "Location"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 59,
+                                lineNumber: 70,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 57,
+                        lineNumber: 68,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -644,7 +765,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Time Period (Years):"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 70,
+                                lineNumber: 81,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -653,17 +774,17 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 value: timePeriod,
                                 onChange: (e)=>setTimePeriod(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
                                 placeholder: "Time Period"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 71,
+                                lineNumber: 82,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 69,
+                        lineNumber: 80,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -675,7 +796,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Interest Rate (%):"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 82,
+                                lineNumber: 93,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -684,17 +805,17 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 value: interest,
                                 onChange: (e)=>setInterest(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
                                 placeholder: "Interest Rate"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 83,
+                                lineNumber: 94,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 81,
+                        lineNumber: 92,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -706,7 +827,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Principal Amount:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 94,
+                                lineNumber: 105,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -715,17 +836,17 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 value: principal,
                                 onChange: (e)=>setPrincipal(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
                                 placeholder: "Principal Amount"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 95,
+                                lineNumber: 106,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 93,
+                        lineNumber: 104,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -737,7 +858,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Down Payment:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 106,
+                                lineNumber: 117,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -745,17 +866,47 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 id: "downPayment",
                                 value: downPayment,
                                 onChange: (e)=>setDownPayment(e.target.value),
-                                className: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
                                 placeholder: "Down Payment"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 107,
+                                lineNumber: 118,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 105,
+                        lineNumber: 116,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "downPayment",
+                                className: "block text-gray-300 text-sm font-bold mb-2",
+                                children: "Pre Payment:"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/LoanInputForm.jsx",
+                                lineNumber: 128,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "number",
+                                id: "prePayment",
+                                value: prePayment,
+                                onChange: (e)=>setprePayment(e.target.value),
+                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                placeholder: "Pre Payment"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/LoanInputForm.jsx",
+                                lineNumber: 129,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/LoanInputForm.jsx",
+                        lineNumber: 127,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -767,7 +918,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Add Loan"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 118,
+                                lineNumber: 140,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -777,29 +928,29 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Calculate EMI"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 121,
+                                lineNumber: 143,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 117,
+                        lineNumber: 139,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                lineNumber: 44,
+                lineNumber: 50,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/LoanInputForm.jsx",
-        lineNumber: 42,
+        lineNumber: 48,
         columnNumber: 9
     }, this);
 }
-_s(LoanInputForm, "K1cXe3XMGrdxHIen8AvpeG51lKg=");
+_s(LoanInputForm, "zBiiatCFEiUQril0x1Epj2R0Wk4=");
 _c = LoanInputForm;
 const __TURBOPACK__default__export__ = LoanInputForm;
 var _c;
@@ -937,9 +1088,9 @@ var _s = __turbopack_refresh__.signature();
 ;
 function HomePage() {
     _s();
-    const [loanData, setLoanData] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState([]);
-    const [calculatedEMI, setCalculatedEMI] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(null);
-    const [currentLoanParams, setCurrentLoanParams] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(null);
+    const [loanData, setLoanData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [calculatedEMI, setCalculatedEMI] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [currentLoanParams, setCurrentLoanParams] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const addLoan = (newLoan)=>{
         setLoanData([
             ...loanData,
@@ -953,7 +1104,7 @@ function HomePage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/dashboard/page.js",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -966,7 +1117,7 @@ function HomePage() {
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/app/dashboard/page.js",
-                            lineNumber: 29,
+                            lineNumber: 30,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -979,12 +1130,12 @@ function HomePage() {
                                         onCalculateEMI: handleCalculateEMI
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/page.js",
-                                        lineNumber: 33,
+                                        lineNumber: 34,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/page.js",
-                                    lineNumber: 32,
+                                    lineNumber: 33,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -994,12 +1145,12 @@ function HomePage() {
                                         setCalculatedEMI: setCalculatedEMI
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/page.js",
-                                        lineNumber: 36,
+                                        lineNumber: 37,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/page.js",
-                                    lineNumber: 35,
+                                    lineNumber: 36,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1009,18 +1160,18 @@ function HomePage() {
                                         calculatedEMI: calculatedEMI
                                     }, void 0, false, {
                                         fileName: "[project]/app/dashboard/page.js",
-                                        lineNumber: 39,
+                                        lineNumber: 40,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/page.js",
-                                    lineNumber: 38,
+                                    lineNumber: 39,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/page.js",
-                            lineNumber: 31,
+                            lineNumber: 32,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1031,31 +1182,31 @@ function HomePage() {
                                     children: "Loan Data Table"
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/page.js",
-                                    lineNumber: 44,
+                                    lineNumber: 45,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$LoanDataTable$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     loans: loanData
                                 }, void 0, false, {
                                     fileName: "[project]/app/dashboard/page.js",
-                                    lineNumber: 45,
+                                    lineNumber: 46,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/dashboard/page.js",
-                            lineNumber: 43,
+                            lineNumber: 44,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/dashboard/page.js",
-                    lineNumber: 28,
+                    lineNumber: 29,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/dashboard/page.js",
-                lineNumber: 27,
+                lineNumber: 28,
                 columnNumber: 13
             }, this)
         ]
