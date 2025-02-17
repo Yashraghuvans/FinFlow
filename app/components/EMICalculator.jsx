@@ -5,9 +5,9 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
 
     useEffect(() => {
         if (loanParams) {
-            const { principalAmount, annualInterestRate, loanTenureYears } = loanParams;
+            const { principalAmount, annualInterestRate, loanTenureYears, prePayment } = loanParams;
 
-            if (principalAmount && annualInterestRate && loanTenureYears) {
+            if (principalAmount && annualInterestRate && loanTenureYears && prePayment) {
                 const monthlyInterestRate = annualInterestRate / 12 / 100;
                 const numberOfMonths = loanTenureYears * 12;
 
@@ -35,6 +35,7 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                     <p className="mb-2">Principal Amount: <span className="font-semibold text-white">₹{loanParams.principalAmount ? loanParams.principalAmount.toFixed(2) : 'N/A'}</span></p>
                     <p className="mb-2">Interest Rate: <span className="font-semibold text-white">{loanParams.annualInterestRate ? loanParams.annualInterestRate.toFixed(2) : 'N/A'}%</span></p>
                     <p className="mb-2">Loan Tenure: <span className="font-semibold text-white">{loanParams.loanTenureYears ? loanParams.loanTenureYears.toFixed(2) : 'N/A'} Years</span></p>
+                    <p className="mb-2">Pre Payment: <span className="font-semibold text-white">{loanParams.prePayment ? loanParams.prePayment.toFixed(2) : 'N/A'} </span></p>
                     {emiValue !== null ? (
                         <div className="emi-result mt-4 p-4 bg-green-700 bg-opacity-75 rounded-md">
                             <h3 className="text-xl font-bold text-white">Calculated EMI: <span className="text-white text-2xl">₹{emiValue}</span></h3>
