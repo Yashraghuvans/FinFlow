@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import EMICalculator from '../components/EMICalculator';
 import EMIOutstandingGraph from '../components/EMIOutstandingGraph';
 import LoanDataTable from '../components/LoanDataTable';
@@ -7,9 +7,10 @@ import LoanInputForm from '../components/LoanInputForm';
 import NavBar from '../components/navbar';
 
 export default function HomePage() {
-    const [loanData, setLoanData] = React.useState([]);
-    const [calculatedEMI, setCalculatedEMI] = React.useState(null);
-    const [currentLoanParams, setCurrentLoanParams] = React.useState(null);
+    
+    const [loanData, setLoanData] = useState([]);
+    const [calculatedEMI, setCalculatedEMI] =useState(null);
+    const [currentLoanParams, setCurrentLoanParams] = useState(null);
 
     const addLoan = (newLoan) => {
         setLoanData([...loanData, newLoan]);
