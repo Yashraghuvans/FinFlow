@@ -171,6 +171,7 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 className: "font-semibold text-white",
                                 children: [
+                                    "₹",
                                     loanParams.prePayment ? loanParams.prePayment.toFixed(2) : 'N/A',
                                     " "
                                 ]
@@ -633,6 +634,36 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
         'Citibank',
         'Others'
     ];
+    const locations = [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal"
+    ];
     const handleSubmit = (e)=>{
         e.preventDefault();
         const newLoan = {
@@ -672,7 +703,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                 children: "Enter Loan Details"
             }, void 0, false, {
                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                lineNumber: 49,
+                lineNumber: 79,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -687,8 +718,8 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Bank Name:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 52,
-                                columnNumber: 17
+                                lineNumber: 82,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 id: "bankName",
@@ -702,28 +733,28 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                         children: "Select Bank"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                                        lineNumber: 60,
-                                        columnNumber: 21
+                                        lineNumber: 90,
+                                        columnNumber: 25
                                     }, this),
                                     bankNames.map((bank)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                             value: bank,
                                             children: bank
                                         }, bank, false, {
                                             fileName: "[project]/app/components/LoanInputForm.jsx",
-                                            lineNumber: 62,
-                                            columnNumber: 25
+                                            lineNumber: 92,
+                                            columnNumber: 29
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 53,
-                                columnNumber: 17
+                                lineNumber: 83,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 51,
-                        columnNumber: 13
+                        lineNumber: 81,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mb-4",
@@ -734,26 +765,42 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Location:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 69,
+                                lineNumber: 99,
                                 columnNumber: 21
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                type: "text",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 id: "location",
                                 value: location,
                                 onChange: (e)=>setLocation(e.target.value),
                                 required: true,
-                                className: "shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
-                                placeholder: "Location"
-                            }, void 0, false, {
+                                className: "shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                        value: "",
+                                        children: "Select Location"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/components/LoanInputForm.jsx",
+                                        lineNumber: 107,
+                                        columnNumber: 25
+                                    }, this),
+                                    locations.map((loc)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: loc,
+                                            children: loc
+                                        }, loc, false, {
+                                            fileName: "[project]/app/components/LoanInputForm.jsx",
+                                            lineNumber: 109,
+                                            columnNumber: 29
+                                        }, this))
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 70,
+                                lineNumber: 100,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 68,
+                        lineNumber: 98,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -765,7 +812,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Time Period (Years):"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 81,
+                                lineNumber: 116,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -778,13 +825,13 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 placeholder: "Time Period"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 82,
+                                lineNumber: 117,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 80,
+                        lineNumber: 115,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -796,7 +843,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Interest Rate (%):"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 93,
+                                lineNumber: 128,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -809,13 +856,13 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 placeholder: "Interest Rate"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 94,
+                                lineNumber: 129,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 92,
+                        lineNumber: 127,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -827,7 +874,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Principal Amount:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 105,
+                                lineNumber: 140,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -840,13 +887,13 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 placeholder: "Principal Amount"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 106,
+                                lineNumber: 141,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 104,
+                        lineNumber: 139,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -858,7 +905,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Down Payment:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 117,
+                                lineNumber: 152,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -870,13 +917,13 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 placeholder: "Down Payment"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 118,
+                                lineNumber: 153,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 116,
+                        lineNumber: 151,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -888,7 +935,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Pre Payment:"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 128,
+                                lineNumber: 163,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -900,13 +947,13 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 placeholder: "Pre Payment"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 129,
+                                lineNumber: 164,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 127,
+                        lineNumber: 162,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -918,7 +965,7 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Add Loan"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 140,
+                                lineNumber: 175,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -928,25 +975,25 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                                 children: "Calculate EMI"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                                lineNumber: 143,
+                                lineNumber: 178,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/LoanInputForm.jsx",
-                        lineNumber: 139,
+                        lineNumber: 174,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/LoanInputForm.jsx",
-                lineNumber: 50,
+                lineNumber: 80,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/LoanInputForm.jsx",
-        lineNumber: 48,
+        lineNumber: 78,
         columnNumber: 9
     }, this);
 }
