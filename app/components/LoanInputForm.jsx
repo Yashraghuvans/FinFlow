@@ -160,14 +160,14 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="downPayment" className="block text-gray-300 text-sm font-bold mb-2">Pre Payment:</label>
+                    <label htmlFor="prePayment" className="block text-gray-300 text-sm font-bold mb-2">Pre Payment:</label>
                     <input
                         type="number"
                         id="prePayment"
                         value={prePayment}
                         onChange={(e) => setprePayment(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Pre Payment"
+                        placeholder="Monthly Pre-Payment"
                     />
                 </div>
 
