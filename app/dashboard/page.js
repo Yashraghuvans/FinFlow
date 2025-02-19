@@ -5,11 +5,11 @@ import EMIOutstandingGraph from '../components/EMIOutstandingGraph';
 import LoanDataTable from '../components/LoanDataTable';
 import LoanInputForm from '../components/LoanInputForm';
 import NavBar from '../components/navbar';
+import LoanSavingsPieChart from '../components/LoanSavingsPieChart'; 
 
 export default function HomePage() {
-    
     const [loanData, setLoanData] = useState([]);
-    const [calculatedEMI, setCalculatedEMI] =useState(null);
+    const [calculatedEMI, setCalculatedEMI] = useState(null);
     const [currentLoanParams, setCurrentLoanParams] = useState(null);
 
     const addLoan = (newLoan) => {
@@ -19,14 +19,13 @@ export default function HomePage() {
     const handleCalculateEMI = (loanParams) => {
         setCurrentLoanParams(loanParams);
     };
-    
 
     return (
         <>
-        <NavBar/>
-            
-            <div className="bg-gray-900 text-white min-h-screen py-24 px-4 sm:px-6 lg:px-8 ">
-                <div className="container mx-auto max-w-7xl"> 
+            <NavBar />
+
+            <div className="bg-gray-900 text-white min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+                <div className="container mx-auto max-w-7xl">
                     <h1 className="text-3xl font-bold mb-6 text-center">Dashboard</h1>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-6"> 
@@ -35,8 +34,9 @@ export default function HomePage() {
                         </div>
                         <div className="bg-gray-800 rounded-lg shadow-md p-6">
                             <EMICalculator loanParams={currentLoanParams} setCalculatedEMI={setCalculatedEMI} />
+                            {currentLoanParams && <LoanSavingsPieChart loanParams={currentLoanParams} />}
                         </div>
-                        <div className="bg-gray-800 rounded-lg shadow-md p-6 lg:col-span-3" > 
+                        <div className="bg-gray-800 rounded-lg shadow-md p-6 lg:col-span-2"> 
                             <EMIOutstandingGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
                         </div>
                     </div>
