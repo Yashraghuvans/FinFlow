@@ -20,9 +20,9 @@ const LoanSavingsPieChart = ({ loanParams }) => {
 
   useEffect(() => {
     if (loanParams) {
-      const { principalAmount, annualInterestRate, loanTenureYears, prePayment, bankName } = loanParams;
+      const { principalAmount, annualInterestRate, loanTenureYears, prePayment = 0, bankName } = loanParams;
 
-      if (principalAmount && annualInterestRate && loanTenureYears && prePayment && bankName) {
+      if (principalAmount && annualInterestRate && loanTenureYears && bankName) {
         const monthlyInterestRate = annualInterestRate / 12 / 100;
         const numberOfMonths = loanTenureYears * 12;
 
