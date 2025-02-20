@@ -17,7 +17,7 @@ const NavBar = () => {
           <Link href="/about" className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
             About
           </Link>
-          <Link href='/dashboard' className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
+          <Link href='/dashpage' className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
             Dashboard
           </Link>
           <Link href='/signin' className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
