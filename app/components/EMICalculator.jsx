@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 function EMICalculator({ loanParams, setCalculatedEMI }) {
     const [emiValue, setEmiValue] = useState(null);
     const [emiWithPrePayment, setEmiWithPrePayment] = useState(null);
@@ -20,9 +19,9 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
 
     useEffect(() => {
         if (loanParams) {
-            const { principalAmount, annualInterestRate, loanTenureYears, prePayment, bankName } = loanParams;
+            const { principalAmount, annualInterestRate, loanTenureYears, prePayment = 0, bankName } = loanParams;
 
-            if (principalAmount && annualInterestRate && loanTenureYears && prePayment && bankName) {
+            if (principalAmount && annualInterestRate && loanTenureYears && bankName) {
                 const monthlyInterestRate = annualInterestRate / 12 / 100;
                 const numberOfMonths = loanTenureYears * 12;
 
@@ -108,7 +107,6 @@ function EMICalculator({ loanParams, setCalculatedEMI }) {
             ) : (
                 <p className="text-gray-400">Enter loan parameters for calculation.</p>
             )}
-
         </div>
     );
 }
