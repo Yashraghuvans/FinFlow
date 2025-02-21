@@ -24,11 +24,11 @@ export default function HomePage() {
         <>
             <NavBar />
 
-            <div className="bg-gray-900 text-white min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+            <div className="bg-gray-900 text-white min-h-screen py-16 md:py-24 px-4 sm:px-6 lg:px-8"> 
                 <div className="container mx-auto max-w-7xl">
                     <h1 className="text-3xl font-bold mb-6 text-center">Owners Dashboard</h1>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-6"> 
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6"> 
                         <div className="bg-gray-800 rounded-lg shadow-md p-6">
                             <LoanInputForm onLoanSubmit={addLoan} onCalculateEMI={handleCalculateEMI} />
                         </div>
@@ -36,7 +36,7 @@ export default function HomePage() {
                             <EMICalculator loanParams={currentLoanParams} setCalculatedEMI={setCalculatedEMI} />
                             {currentLoanParams && <LoanSavingsPieChart loanParams={currentLoanParams} />}
                         </div>
-                        <div className="bg-gray-800 rounded-lg shadow-md p-6 lg:col-span-2"> 
+                        <div className="bg-gray-800 rounded-lg shadow-md p-6 sm:col-span-2">
                             <EMIOutstandingGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
                         </div>
                     </div>
