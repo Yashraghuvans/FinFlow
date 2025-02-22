@@ -57,8 +57,7 @@ const LoanSavingsPieChart = ({ loanParams }) => {
         const totalEmi = emi + (fee / numberOfMonths);
         const totalEmiWithPrePayment = emiWithPrePayment + (fee / numberOfMonths);
 
-        const monthlySavings = totalEmi - totalEmiWithPrePayment;
-        const totalSavings = monthlySavings * numberOfMonths;
+        const totalSavings = (totalEmi - totalEmiWithPrePayment) * numberOfMonths;
 
         setNormalEMI(totalEmi.toFixed(3));
         setPrepaymentSavings(totalSavings.toFixed(3));
