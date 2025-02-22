@@ -23,11 +23,13 @@ function EMIOutstandingGraph({ loanParams, calculatedEMI }) {
 
         const labels = [];
         const outstandingPrincipalData = [];
+        const principalData = [];
         let currentOutstandingPrincipal = principalAmount;
 
         for (let month = 1; month <= numberOfMonths; month++) {
             labels.push(`Month ${month}`);
             outstandingPrincipalData.push(currentOutstandingPrincipal);
+            principalData.push(principalAmount);
 
             const interestPayment = currentOutstandingPrincipal * monthlyInterestRate;
             const principalPayment = emi - interestPayment;
@@ -44,15 +46,17 @@ function EMIOutstandingGraph({ loanParams, calculatedEMI }) {
                         label: 'Outstanding Principal',
                         data: outstandingPrincipalData,
                         borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         tension: 0.1,
-                        fill: false,
+                        fill: true,
                     },
                     {
-                        label: 'EMI Amount',
-                        data: Array(numberOfMonths).fill(emi),
+                        label: 'Principal Amount',
+                        data: principalData,
                         borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         tension: 0.1,
-                        fill: false,
+                        fill: true,
                     },
                 ],
             },
@@ -79,11 +83,11 @@ function EMIOutstandingGraph({ loanParams, calculatedEMI }) {
                         },
                         ticks: {
                             color: 'rgba(255, 255, 255, 0.7)',
+                            stepSize: 50000, 
                         },
                         title: {
                             display: true,
                             text: 'Amount (₹)',
-                            color: 'rgba(255, 255, 255, 0.8)',
                         },
                     },
                 },
@@ -105,7 +109,6 @@ function EMIOutstandingGraph({ loanParams, calculatedEMI }) {
         }
 
         chartInstance.current = new Chart(ctx, chartConfig);
-
 
         return () => {
             if (chartInstance.current) {
