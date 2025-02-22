@@ -20,9 +20,6 @@ const NavBar = () => {
           <Link href='/dashpage' className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
             Dashboard
           </Link>
-          <Link href='/signin' className='text-base md:text-lg font-medium uppercase hover:text-blue-500 transition'>
-            SignUp
-          </Link>
         </div>
       </div>
     </nav>
