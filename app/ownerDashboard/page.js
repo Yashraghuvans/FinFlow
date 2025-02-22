@@ -1,16 +1,27 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import EMICalculator from '../components/EMICalculator';
 import EMIOutstandingGraph from '../components/EMIOutstandingGraph';
 import LoanDataTable from '../components/LoanDataTable';
 import LoanInputForm from '../components/LoanInputForm';
 import NavBar from '../components/navbar';
 import LoanSavingsPieChart from '../components/LoanSavingsPieChart'; 
+import EMIWithPrepaymentGraph from '../components/EMIWithPrepaymentGraph'; 
+import LoanDetailsTable from '../components/LoanDetailsTable'; 
 
 export default function HomePage() {
+    const searchParams = useSearchParams();
     const [loanData, setLoanData] = useState([]);
     const [calculatedEMI, setCalculatedEMI] = useState(null);
     const [currentLoanParams, setCurrentLoanParams] = useState(null);
+
+    useEffect(() => {
+        const loanDataParam = searchParams.get('loanData');
+        if (loanDataParam) {
+            setLoanData(JSON.parse(loanDataParam));
+        }
+    }, [searchParams]);
 
     const addLoan = (newLoan) => {
         setLoanData([...loanData, newLoan]);
@@ -18,6 +29,10 @@ export default function HomePage() {
 
     const handleCalculateEMI = (loanParams) => {
         setCurrentLoanParams(loanParams);
+    };
+
+    const handleRecalculate = (loan) => {
+        setCurrentLoanParams(loan);
     };
 
     return (
@@ -36,14 +51,22 @@ export default function HomePage() {
                             <EMICalculator loanParams={currentLoanParams} setCalculatedEMI={setCalculatedEMI} />
                             {currentLoanParams && <LoanSavingsPieChart loanParams={currentLoanParams} />}
                         </div>
-                        <div className="bg-gray-800 rounded-lg shadow-md p-6 sm:col-span-2">
+                        <div className="bg-gray-800 rounded-lg shadow-md p-8 sm:col-span-2 h-[300px] pt-11">
                             <EMIOutstandingGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
                         </div>
+                        <div className="bg-gray-800 rounded-lg shadow-md p-8 sm:col-span-2 h-[300px] pt-11">
+                            <EMIWithPrepaymentGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
+                        </div>
+                    </div>
+
+                    <div className="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                        <h2 className="text-xl font-semibold mb-4">Loan Details Table</h2>
+                        <LoanDetailsTable loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
                     </div>
 
                     <div className="bg-gray-800 rounded-lg shadow-md p-6">
                         <h2 className="text-xl font-semibold mb-4">Loan Data Table</h2>
-                        <LoanDataTable loans={loanData} />
+                        <LoanDataTable loans={loanData} onRecalculate={handleRecalculate} />
                     </div>
                 </div>
             </div>
