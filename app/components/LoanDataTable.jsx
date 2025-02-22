@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LoanDataTable({ loans }) {
+function LoanDataTable({ loans, onRecalculate }) {
     if (!loans || loans.length === 0) {
         return <p className="text-gray-400">No loan data added yet.</p>;
     }
@@ -29,7 +29,10 @@ function LoanDataTable({ loans }) {
                             Down Payment
                         </th>
                         <th className="px-5 py-3 border-b-2 border-gray-600 text-left text-xs font-semibold uppercase tracking-wider">
-                            Monthly Pre-Payment
+                            Pre-Payment
+                        </th>
+                        <th className="px-5 py-3 border-b-2 border-gray-600 text-left text-xs font-semibold uppercase tracking-wider">
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -38,11 +41,19 @@ function LoanDataTable({ loans }) {
                         <tr key={index}>
                             <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.bankName}</td>
                             <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.location}</td>
-                            <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.timePeriod}</td>
-                            <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.interest}</td>
-                            <td className="px-5 py-5 border-b border-gray-700 text-sm">₹{loan.principal}</td>
+                            <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.loanTenureYears}</td>
+                            <td className="px-5 py-5 border-b border-gray-700 text-sm">{loan.annualInterestRate}</td>
+                            <td className="px-5 py-5 border-b border-gray-700 text-sm">₹{loan.principalAmount}</td>
                             <td className="px-5 py-5 border-b border-gray-700 text-sm">₹{loan.downPayment}</td>
                             <td className="px-5 py-5 border-b border-gray-700 text-sm">₹{loan.prePayment}</td>
+                            <td className="px-5 py-5 border-b border-gray-700 text-sm">
+                                <button
+                                    onClick={() => onRecalculate(loan)}
+                                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                >
+                                    Details
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
