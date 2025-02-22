@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast, Slide, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
     const [bankName, setBankName] = useState('');
     const [location, setLocation] = useState('');
-    const [timePeriod, setTimePeriod] = useState('');
-    const [interest, setInterest] = useState('');
-    const [principal, setPrincipal] = useState('');
+    const [loanTenureYears, setLoanTenureYears] = useState('');
+    const [annualInterestRate, setAnnualInterestRate] = useState('');
+    const [principalAmount, setPrincipalAmount] = useState('');
     const [downPayment, setDownPayment] = useState('');
-    const [prePayment, setprePayment] = useState('');
+    const [prePayment, setPrePayment] = useState('');
     const bankNames = ['SBI', 'HDFC', 'Axis', 'ICICI', 'PNB', 'LIC', 'Citibank', 'Others'];
     const locations = [
         "Andhra Pradesh",
@@ -40,34 +42,58 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
         "West Bengal"
     ];
 
+    const notify1 = () => toast.success('Complete!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Slide,
+    });
+    const notify2 = () => toast.success('Adding Data!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const newLoan = {
             bankName,
             location,
-            timePeriod: parseFloat(timePeriod),
-            interest: parseFloat(interest),
-            principal: parseFloat(principal),
+            loanTenureYears: parseFloat(loanTenureYears),
+            annualInterestRate: parseFloat(annualInterestRate),
+            principalAmount: parseFloat(principalAmount),
             downPayment: parseFloat(downPayment),
             prePayment: parseFloat(prePayment),
         };
         onLoanSubmit(newLoan);
         setBankName('');
         setLocation('');
-        setTimePeriod('');
-        setInterest('');
-        setPrincipal('');
+        setLoanTenureYears('');
+        setAnnualInterestRate('');
+        setPrincipalAmount('');
         setDownPayment('');
-        setprePayment('');
+        setPrePayment('');
     };
 
     const handleCalculateClick = (e) => {
         e.preventDefault();
+        notify1();
 
         const loanParams = {
-            principalAmount: parseFloat(principal) - parseFloat(downPayment || 0),
-            annualInterestRate: parseFloat(interest),
-            loanTenureYears: parseFloat(timePeriod),
+            principalAmount: parseFloat(principalAmount) - parseFloat(downPayment || 0),
+            annualInterestRate: parseFloat(annualInterestRate),
+            loanTenureYears: parseFloat(loanTenureYears),
             prePayment: parseFloat(prePayment || 0),
             bankName: bankName,
         };
@@ -113,36 +139,36 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="timePeriod" className="block text-gray-300 text-sm font-bold mb-2">Time Period (Years):</label>
+                    <label htmlFor="loanTenureYears" className="block text-gray-300 text-sm font-bold mb-2">Loan Tenure (Years):</label>
                     <input
                         type="number"
-                        id="timePeriod"
-                        value={timePeriod}
-                        onChange={(e) => setTimePeriod(e.target.value)}
+                        id="loanTenureYears"
+                        value={loanTenureYears}
+                        onChange={(e) => setLoanTenureYears(e.target.value)}
                         required
                         className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Time Period"
+                        placeholder="Loan Tenure"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="interest" className="block text-gray-300 text-sm font-bold mb-2">Interest Rate (%):</label>
+                    <label htmlFor="annualInterestRate" className="block text-gray-300 text-sm font-bold mb-2">Annual Interest Rate (%):</label>
                     <input
                         type="number"
-                        id="interest"
-                        value={interest}
-                        onChange={(e) => setInterest(e.target.value)}
+                        id="annualInterestRate"
+                        value={annualInterestRate}
+                        onChange={(e) => setAnnualInterestRate(e.target.value)}
                         required
                         className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Interest Rate"
+                        placeholder="Annual Interest Rate"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="principal" className="block text-gray-300 text-sm font-bold mb-2">Principal Amount:</label>
+                    <label htmlFor="principalAmount" className="block text-gray-300 text-sm font-bold mb-2">Principal Amount:</label>
                     <input
                         type="number"
-                        id="principal"
-                        value={principal}
-                        onChange={(e) => setPrincipal(e.target.value)}
+                        id="principalAmount"
+                        value={principalAmount}
+                        onChange={(e) => setPrincipalAmount(e.target.value)}
                         required
                         className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Principal Amount"
@@ -160,26 +186,27 @@ function LoanInputForm({ onLoanSubmit, onCalculateEMI }) {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="prePayment" className="block text-gray-300 text-sm font-bold mb-2">Pre Payment:</label>
+                    <label htmlFor="prePayment" className="block text-gray-300 text-sm font-bold mb-2">One-Time Prepayment:</label>
                     <input
                         type="number"
                         id="prePayment"
                         value={prePayment}
-                        onChange={(e) => setprePayment(e.target.value)}
+                        onChange={(e) => setPrePayment(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Monthly Pre-Payment"
+                        placeholder="One-Time Prepayment"
                     />
                 </div>
 
                 <div className="flex justify-start mt-6">
-                    <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
-                        Add Loan
+                    <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4" onClick={notify2}>
+                        Add
                     </button>
                     <button type="button" onClick={handleCalculateClick} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Calculate EMI
+                        Calculate
                     </button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 }
