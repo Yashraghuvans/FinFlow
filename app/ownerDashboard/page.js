@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import EMICalculator from '../components/EMICalculator';
 import EMIOutstandingGraph from '../components/EMIOutstandingGraph';
@@ -10,7 +10,7 @@ import LoanSavingsPieChart from '../components/LoanSavingsPieChart';
 import EMIWithPrepaymentGraph from '../components/EMIWithPrepaymentGraph'; 
 import LoanDetailsTable from '../components/LoanDetailsTable'; 
 
-export default function HomePage() {
+function HomePage() {
     const searchParams = useSearchParams();
     const [loanData, setLoanData] = useState([]);
     const [calculatedEMI, setCalculatedEMI] = useState(null);
@@ -73,3 +73,13 @@ export default function HomePage() {
         </>
     );
 }
+
+function HomePageWrapper() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <HomePage />
+        </Suspense>
+    );
+}
+
+export default HomePageWrapper;
