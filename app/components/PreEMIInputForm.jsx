@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const PreEMIInputForm = () => {
+const PreEMIInputForm = ({ onSubmit }) => {
     const locations = [
         "Andhra Pradesh",
         "Arunachal Pradesh",
@@ -76,15 +76,17 @@ const PreEMIInputForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-
-        console.log("Form submitted:", {
+        const formData = {
             name,
             selectedProject,
             selectedLocation,
             projectValue,
             projectTimePeriod
-        });
+        };
 
+        console.log("Form submitted:", formData);
+
+        onSubmit(formData);
 
         setname("");
         setSelectedProject("");
@@ -92,7 +94,6 @@ const PreEMIInputForm = () => {
         setprojectValue("");
         setprojectTimePeriod("");
     };
-
 
     return (
         <div className="container mx-auto p-4 bg-gray-900 min-h-screen flex items-center justify-center">
