@@ -64,6 +64,10 @@ const PreEMIInputForm = ({ onSubmit }) => {
     const [projectValue, setprojectValue] = useState("");
     const [name, setname] = useState("");
     const [projectTimePeriod, setprojectTimePeriod] = useState("");
+    const [plannedBudget, setPlannedBudget] = useState('');
+    const [actualSpending, setActualSpending] = useState('');
+    const [revenue, setRevenue] = useState('');
+    const [expenses, setExpenses] = useState('');
 
     const handleLocationChange = (event) => {
         setSelectedLocation(event.target.value);
@@ -81,7 +85,11 @@ const PreEMIInputForm = ({ onSubmit }) => {
             selectedProject,
             selectedLocation,
             projectValue,
-            projectTimePeriod
+            projectTimePeriod,
+            plannedBudget,
+            actualSpending,
+            revenue,
+            expenses
         };
 
         console.log("Form submitted:", formData);
@@ -93,12 +101,16 @@ const PreEMIInputForm = ({ onSubmit }) => {
         setSelectedLocation("");
         setprojectValue("");
         setprojectTimePeriod("");
+        setPlannedBudget('');
+        setActualSpending('');
+        setRevenue('');
+        setExpenses('');
     };
 
     return (
-        <div className="container mx-auto p-4 bg-gray-900 min-h-screen flex items-center justify-center">
-            <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 className='text-2xl font-bold border-b-2 border-white my-5 py-1 text-center text-white'>Enter The Details </h2>
+        <div className="w-1/2 p-4 bg-gray-900 flex items-center justify-center">
+            <form onSubmit={handleSubmit} className="w-full bg-gray-800 shadow-md rounded px-8 pt-6 pb-8">
+                <h2 className='text-2xl font-bold border-b-2 border-white my-5 py-1 text-center text-white'>Enter The Details</h2>
                 <div className="mb-4">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="name">
                         Name
@@ -149,31 +161,85 @@ const PreEMIInputForm = ({ onSubmit }) => {
                         ))}
                     </select>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="projectValue">
-                        Project Value
-                    </label>
-                    <input
-                        type='number'
-                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        id='projectValue'
-                        placeholder='Amount'
-                        value={projectValue}
-                        onChange={(e) => setprojectValue(e.target.value)}
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="projectTimePeriod">
-                        Project Time Period (Months)
-                    </label>
-                    <input
-                        type='number'
-                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        id='projectTimePeriod'
-                        placeholder='Time Period (Months)'
-                        value={projectTimePeriod}
-                        onChange={(e) => setprojectTimePeriod(e.target.value)}
-                    />
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label htmlFor="projectValue" className="block text-sm font-medium text-white">
+                            Project Value
+                        </label>
+                        <input
+                            type="number"
+                            id="projectValue"
+                            name="projectValue"
+                            value={projectValue}
+                            onChange={(e) => setprojectValue(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="projectTimePeriod" className="block text-sm font-medium text-white">
+                            Project Time Period
+                        </label>
+                        <input
+                            type="number"
+                            id="projectTimePeriod"
+                            name="projectTimePeriod"
+                            value={projectTimePeriod}
+                            onChange={(e) => setprojectTimePeriod(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="plannedBudget" className="block text-sm font-medium text-white">
+                            Planned Budget
+                        </label>
+                        <input
+                            type="number"
+                            id="plannedBudget"
+                            name="plannedBudget"
+                            value={plannedBudget}
+                            onChange={(e) => setPlannedBudget(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="actualSpending" className="block text-sm font-medium text-white">
+                            Actual Spending
+                        </label>
+                        <input
+                            type="number"
+                            id="actualSpending"
+                            name="actualSpending"
+                            value={actualSpending}
+                            onChange={(e) => setActualSpending(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="revenue" className="block text-sm font-medium text-white">
+                            Revenue
+                        </label>
+                        <input
+                            type="number"
+                            id="revenue"
+                            name="revenue"
+                            value={revenue}
+                            onChange={(e) => setRevenue(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="expenses" className="block text-sm font-medium text-white">
+                            Expenses
+                        </label>
+                        <input
+                            type="number"
+                            id="expenses"
+                            name="expenses"
+                            value={expenses}
+                            onChange={(e) => setExpenses(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 text-white"
+                        />
+                    </div>
                 </div>
                 <div className="mb-6">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
