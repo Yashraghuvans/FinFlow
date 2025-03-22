@@ -1,32 +1,32 @@
 import React from 'react';
 
-const DataTable = ({ data }) => {
+function DataTable({ data }) {
+    if (!data || data.length === 0) {
+        return <p>No data available.</p>;
+    }
+
     return (
-        <div className="container mx-auto p-4 bg-gray-900 min-h-screen flex items-center justify-center">
-            <table className="min-w-full bg-gray-800 text-white">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b border-gray-700">Name</th>
-                        <th className="py-2 px-4 border-b border-gray-700">Project</th>
-                        <th className="py-2 px-4 border-b border-gray-700">Location</th>
-                        <th className="py-2 px-4 border-b border-gray-700">Project Value</th>
-                        <th className="py-2 px-4 border-b border-gray-700">Project Time Period</th>
+        <table>
+            <thead>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                    <th>Column 3</th>
+                    <th>Column 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                        <td>{item.column1}</td>
+                        <td>{item.column2}</td>
+                        <td>{item.column3}</td>
+                        <td>{item.column4}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {data.map((item, index) => (
-                        <tr key={index}>
-                            <td className="py-2 px-4 border-b border-gray-700">{item.name}</td>
-                            <td className="py-2 px-4 border-b border-gray-700">{item.selectedProject}</td>
-                            <td className="py-2 px-4 border-b border-gray-700">{item.selectedLocation}</td>
-                            <td className="py-2 px-4 border-b border-gray-700">{item.projectValue}</td>
-                            <td className="py-2 px-4 border-b border-gray-700">{item.projectTimePeriod}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                ))}
+            </tbody>
+        </table>
     );
-};
+}
 
 export default DataTable;
