@@ -26,7 +26,7 @@ const ContractorDashboard = () => {
         </h1>
       </div>
       <div className="w-full bg-gray-900 flex flex-wrap justify-center items-center gap-6 p-4">
-        <div className="w-full lg:w-1/2 flex justify-center items-center">
+        <div className="w-full lg:w-full flex justify-center items-center">
           <PreEMIInputForm onSubmit={handleFormSubmit} />
         </div>
         <div className="w-full lg:w-1/2 border-2 border-white p-5">
