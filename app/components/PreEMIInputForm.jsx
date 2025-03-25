@@ -108,7 +108,7 @@ const PreEMIInputForm = ({ onSubmit }) => {
     };
 
     return (
-        <div className="w-1/2 p-4 bg-gray-900 flex items-center justify-center">
+        <div className="w-full p-4 bg-gray-900 flex items-center justify-center">
             <form onSubmit={handleSubmit} className="w-full bg-gray-800 shadow-md rounded px-8 pt-6 pb-8">
                 <h2 className='text-2xl font-bold border-b-2 border-white my-5 py-1 text-center text-white'>Enter The Details</h2>
                 <div className="mb-4">
