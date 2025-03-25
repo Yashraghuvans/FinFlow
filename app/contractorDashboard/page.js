@@ -25,19 +25,19 @@ const ContractorDashboard = () => {
           Contractors dashboard
         </h1>
       </div>
-      <div className="w-full bg-gray-900 flex justify-center items-center">
-        <div className="w-full flex justify-center items-center">
+      <div className="w-full bg-gray-900 flex flex-wrap justify-center items-center gap-6 p-4">
+        <div className="w-full lg:w-1/2 flex justify-center items-center">
           <PreEMIInputForm onSubmit={handleFormSubmit} />
-          <div className='border-2 border-white w-1/2 h-1/2 p-5'>
-          <h1 className='text-3xl text-center p-2 pb-6'>Budget Analysis Chart</h1>
-          <hr className='border-b-2 bg-white'/>
-            <BudgetPieChart projects={formData} />
-          </div>
+        </div>
+        <div className="w-full lg:w-1/2 border-2 border-white p-5">
+          <h1 className="text-3xl text-center p-2 pb-6">Budget Analysis Chart</h1>
+          <hr className="border-b-2 bg-white" />
+          <BudgetPieChart projects={formData} />
         </div>
       </div>
       <div className="w-full bg-gray-900 p-8 border-2 border-white">
         <h2 className="text-2xl font-semibold mb-4 text-gray-100">Details</h2>
-        <div className="w-1/2">
+        <div className="w-full lg:w-1/2">
           <FormInputDetails formData={formData} />
         </div>
       </div>
