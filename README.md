@@ -1,6 +1,4 @@
-
-<img src="https://github.com/Yashraghuvans/FinFlow/blob/main/FinFlow.png?raw=true" height="15%" width="100%">
-
+![Logo](https://github.com/Yashraghuvans/FinFlow/blob/main/FinFlow.png)
 
 # FinFlow
 
