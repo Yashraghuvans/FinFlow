@@ -6,7 +6,7 @@ import { TiVendorMicrosoft } from "react-icons/ti";
 import { FaXTwitter } from "react-icons/fa6";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import NavBar from '../components/navbar';
+import NavBar from '../components/NavBar';
 import Link from 'next/link';
 
 const SignIn = () => {
