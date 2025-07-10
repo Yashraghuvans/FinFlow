@@ -6,7 +6,7 @@ import { FaMicrosoft } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/navbar';
 import Link from 'next/link';
 import Image from 'next/image';
 

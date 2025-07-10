@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/navbar';
 import Image from 'next/image';
 
 const DashPage = () => {

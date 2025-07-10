@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import React from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/navbar';
 
 const About = () => {
     return (

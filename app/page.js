@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar';
 import HeroSection from './components/HeroSection';
 import FeaturesSection from './components/FeaturesSection';
 import Footer from './components/Footer';
