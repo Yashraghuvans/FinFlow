@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import NavBar from '../components/navbar';
+import NavBar from '../components/NavBar';
 import PreEMIInputForm from '../components/PreEMIInputForm';
 import FormInputDetails from '../components/FormInputDetails';
 import BudgetAnalysis from '../components/BudgetAnalysis';
