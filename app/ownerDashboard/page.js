@@ -5,7 +5,7 @@ import EMICalculator from '../components/EMICalculator';
 import EMIOutstandingGraph from '../components/EMIOutstandingGraph';
 import LoanDataTable from '../components/LoanDataTable';
 import LoanInputForm from '../components/LoanInputForm';
-import NavBar from '../components/navbar';
+import NavBar from '../components/NavBar';
 import LoanSavingsPieChart from '../components/LoanSavingsPieChart'; 
 import EMIWithPrepaymentGraph from '../components/EMIWithPrepaymentGraph'; 
 import LoanDetailsTable from '../components/LoanDetailsTable'; 
