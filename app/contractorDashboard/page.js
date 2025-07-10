@@ -18,42 +18,48 @@ const ContractorDashboard = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-gray-900">
+    <div className="flex flex-col min-h-screen bg-gray-900">
       <NavBar />
-      <div className="w-full flex justify-center items-center py-10">
-        <h1 className="text-white text-5xl font-semibold text-center pt-32 z-[99]">
-          Contractors dashboard
-        </h1>
-      </div>
-      <div className="w-full">
-        <div className="w-full flex justify-center items-center pl-2 pr-2">
-          <PreEMIInputForm onSubmit={handleFormSubmit} className="w-full m-0" />
-        </div>
-      </div>
-      <div className="w-full flex flex-wrap justify-center items-center gap-6 p-4 mb-4">
-        <div className="w-full lg:w-1/2 border-2 border-white p-5">
-          <h1 className="text-3xl text-center p-2 pb-6">Budget Analysis Chart</h1>
-          <hr className="border-b-2 bg-white" />
-          <BudgetPieChart projects={formData} />
-        </div>
-      </div>
-      <div className="w-full p-8 border-2 border-white">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-100">Details</h2>
-        <div className="w-full lg:w-1/2">
-          <FormInputDetails formData={formData} />
-        </div>
-      </div>
-      <div className="w-full bg-gray-900 p-8 border-2 border-white">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-100">Budget Analysis</h2>
-        <BudgetAnalysis projects={formData} />
-      </div>
-      <div className="w-full bg-gray-900 p-8 border-2 border-white">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-100">Profit/Loss Analysis</h2>
-        <ProfitLossComparison projects={formData} />
-      </div>
-      <div className="w-full bg-gray-900 p-8 border-2 border-white">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-100">Profit Bar Chart</h2>
-        <ProfitBarChart projects={formData} />
+      <div className="flex-1 flex flex-col min-h-screen">
+        <header
+          className="w-full bg-gray-950/80 border-b border-gray-800 shadow flex items-center px-6 py-4 sticky z-20"
+          style={{ marginTop: '64px' }}
+        >
+          <span className="text-2xl font-bold text-white tracking-tight">Contractor's Dashboard</span>
+          
+        </header>
+        <main className="flex-1 overflow-y-auto px-2 md:px-8 py-4 md:py-8 bg-gradient-to-br from-gray-900/80 to-black/90">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Enter Project Details</h2>
+              <PreEMIInputForm onSubmit={handleFormSubmit} className="w-full m-0" />
+            </div>
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Budget Analysis Chart</h2>
+              <BudgetPieChart projects={formData} />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Details</h2>
+              <FormInputDetails formData={formData} />
+            </div>
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Budget Analysis</h2>
+              <BudgetAnalysis projects={formData} />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Profit/Loss Analysis</h2>
+              <ProfitLossComparison projects={formData} />
+            </div>
+            <div className="bg-gray-800 rounded-2xl shadow-lg p-4 md:p-6 flex flex-col">
+              <h2 className="text-lg font-semibold mb-3 md:mb-4 text-white">Profit Bar Chart</h2>
+              <ProfitBarChart projects={formData} />
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );
