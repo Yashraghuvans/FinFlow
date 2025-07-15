@@ -2,6 +2,9 @@
 
 # FinFlow
 
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Yashraghuvans/FinFlow/pulls)
+
 The app will help users track loan disbursements, payments to builders, and interest accruals. Additionally, it will remind users weekly or monthly to update their financial records. The app can also visualize trends, outstanding balances, and interest growth while offering insights to optimize payments.
 
 ## Link : 
