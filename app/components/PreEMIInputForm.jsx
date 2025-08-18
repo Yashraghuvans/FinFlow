@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Building2, MapPin, Calendar, DollarSign, TrendingUp, Calculator, Save } from 'lucide-react';
 
 const PreEMIInputForm = ({ onSubmit }) => {
     const locations = [
@@ -101,153 +102,193 @@ const PreEMIInputForm = ({ onSubmit }) => {
         setSelectedLocation("");
         setprojectValue("");
         setprojectTimePeriod("");
-        setPlannedBudget('');
-        setActualSpending('');
-        setRevenue('');
-        setExpenses('');
+        setPlannedBudget("");
+        setActualSpending("");
+        setRevenue("");
+        setExpenses("");
     };
 
     return (
-        <div className="w-full p-4 bg-gray-900 flex items-center justify-center">
-            <form onSubmit={handleSubmit} className="w-full bg-gray-800 shadow-md rounded px-8 pt-6 pb-8">
-                <h2 className='text-2xl font-bold border-b-2 border-white my-5 py-1 text-center text-white'>Enter The Details</h2>
-                <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="name">
-                        Name
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        id="name"
-                        type="text"
-                        placeholder="Name"
-                        required
-                        value={name}
-                        onChange={(e) => setname(e.target.value)}
-                    />
+        <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Project Information Section */}
+            <div className="space-y-4">
+                <div className="flex items-center space-x-2 mb-4">
+                    <Building2 className="w-5 h-5 text-primary-400" />
+                    <h3 className="text-lg font-semibold text-white">Project Information</h3>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="project">
-                        Project
-                    </label>
-                    <select
-                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        id="project"
-                        value={selectedProject}
-                        onChange={handleProjectChange}
-                    >
-                        <option value="" disabled>Select Project</option>
-                        {projects.map((project, index) => (
-                            <option key={index} value={project}>
-                                {project}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-white text-sm font-bold mb-2" htmlFor="location">
-                        Location
-                    </label>
-                    <select
-                        className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white border-gray-600 focus:ring-blue-500 focus:border-blue-500"
-                        id="location"
-                        value={selectedLocation}
-                        onChange={handleLocationChange}
-                    >
-                        <option value="" disabled>Select Location</option>
-                        {locations.map((location, index) => (
-                            <option key={index} value={location}>
-                                {location}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="projectValue" className="block text-sm font-medium text-white">
-                            Project Value
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Project Name
+                        </label>
+                        <select
+                            value={selectedProject}
+                            onChange={handleProjectChange}
+                            className="form-input"
+                            required
+                        >
+                            <option value="">Select a project</option>
+                            {projects.map((project, index) => (
+                                <option key={index} value={project}>
+                                    {project}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Location
+                        </label>
+                        <select
+                            value={selectedLocation}
+                            onChange={handleLocationChange}
+                            className="form-input"
+                            required
+                        >
+                            <option value="">Select location</option>
+                            {locations.map((location, index) => (
+                                <option key={index} value={location}>
+                                    {location}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Project Value (₹)
                         </label>
                         <input
                             type="number"
-                            id="projectValue"
-                            name="projectValue"
                             value={projectValue}
                             onChange={(e) => setprojectValue(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter project value"
+                            required
                         />
                     </div>
+
                     <div>
-                        <label htmlFor="projectTimePeriod" className="block text-sm font-medium text-white">
-                            Project Time Period
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Project Time Period (months)
                         </label>
                         <input
                             type="number"
-                            id="projectTimePeriod"
-                            name="projectTimePeriod"
                             value={projectTimePeriod}
                             onChange={(e) => setprojectTimePeriod(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter time period"
+                            required
                         />
                     </div>
+                </div>
+            </div>
+
+            {/* Financial Information Section */}
+            <div className="space-y-4">
+                <div className="flex items-center space-x-2 mb-4">
+                    <DollarSign className="w-5 h-5 text-success-400" />
+                    <h3 className="text-lg font-semibold text-white">Financial Details</h3>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="plannedBudget" className="block text-sm font-medium text-white">
-                            Planned Budget
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Planned Budget (₹)
                         </label>
                         <input
                             type="number"
-                            id="plannedBudget"
-                            name="plannedBudget"
                             value={plannedBudget}
                             onChange={(e) => setPlannedBudget(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter planned budget"
+                            required
                         />
                     </div>
+
                     <div>
-                        <label htmlFor="actualSpending" className="block text-sm font-medium text-white">
-                            Actual Spending
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Actual Spending (₹)
                         </label>
                         <input
                             type="number"
-                            id="actualSpending"
-                            name="actualSpending"
                             value={actualSpending}
                             onChange={(e) => setActualSpending(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter actual spending"
+                            required
                         />
                     </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="revenue" className="block text-sm font-medium text-white">
-                            Revenue
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Revenue (₹)
                         </label>
                         <input
                             type="number"
-                            id="revenue"
-                            name="revenue"
                             value={revenue}
                             onChange={(e) => setRevenue(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter revenue"
+                            required
                         />
                     </div>
+
                     <div>
-                        <label htmlFor="expenses" className="block text-sm font-medium text-white">
-                            Expenses
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                            Expenses (₹)
                         </label>
                         <input
                             type="number"
-                            id="expenses"
-                            name="expenses"
                             value={expenses}
                             onChange={(e) => setExpenses(e.target.value)}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="form-input"
+                            placeholder="Enter expenses"
+                            required
                         />
                     </div>
                 </div>
-                <div className="mb-6">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
-                        Submit
-                    </button>
+            </div>
+
+            {/* Additional Information Section */}
+            <div className="space-y-4">
+                <div className="flex items-center space-x-2 mb-4">
+                    <Calculator className="w-5 h-5 text-warning-400" />
+                    <h3 className="text-lg font-semibold text-white">Additional Information</h3>
                 </div>
-            </form>
-        </div>
+                
+                <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
+                        Contractor Name
+                    </label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setname(e.target.value)}
+                        className="form-input"
+                        placeholder="Enter contractor name"
+                        required
+                    />
+                </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-4">
+                <button
+                    type="submit"
+                    className="w-full btn-primary text-lg py-3 flex items-center justify-center space-x-2"
+                >
+                    <Save className="w-5 h-5" />
+                    <span>Save Project Details</span>
+                </button>
+            </div>
+        </form>
     );
 };
 
