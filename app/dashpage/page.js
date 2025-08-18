@@ -2,98 +2,150 @@ import Link from 'next/link';
 import React from 'react';
 import NavBar from '../components/navbar';
 import Image from 'next/image';
+import { Building2, Home, ArrowRight, TrendingUp, Calculator } from 'lucide-react';
 
 const DashPage = () => {
+    const dashboardOptions = [
+        {
+            title: "Contractor Dashboard",
+            description: "Access comprehensive analytics and tools tailored for contractors to manage projects efficiently.",
+            icon: Building2,
+            image: "/img2.png",
+            href: "/contractorDashboard",
+            gradientClass: "from-primary-600 to-primary-800",
+            features: ["Project Management", "Budget Analysis", "Profit/Loss Tracking", "Resource Planning"],
+            colorClass: "bg-primary-500"
+        },
+        {
+            title: "Owner Dashboard",
+            description: "Gain insights and manage your properties with advanced analytics as an owner.",
+            icon: Home,
+            image: "/img1.png",
+            href: "/ownerDashboard",
+            gradientClass: "from-teal-600 to-teal-800",
+            features: ["EMI Calculator", "Loan Tracking", "Interest Analysis", "Payment Optimization"],
+            colorClass: "bg-teal-500"
+        }
+    ];
+
     return (
-        <div>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
             <NavBar />
-            <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 to-black text-white flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
-                <div className="container mx-auto max-w-7xl flex flex-col items-center justify-center pt-8 md:pt-16 lg:pt-20">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 text-center leading-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        Select Your Dashboard
-                    </h1>
-                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-24 items-center justify-center w-full">
-                        {/* Contractor Card */}
-                        <section className="group">
-                            <div className="relative flex w-full max-w-xs flex-col rounded-xl bg-gray-800 border border-gray-700 text-gray-200 shadow-xl overflow-hidden
-                                transition-all duration-300 ease-in-out transform
-                                hover:scale-105 hover:shadow-2xl hover:border-purple-500">
+            
+            <div className="pt-24 pb-16 px-4">
+                <div className="max-w-7xl mx-auto">
+                    {/* Header Section */}
+                    <div className="text-center mb-16 animate-fade-in-up">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 text-white">
+                            Select Your{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-purple-400">
+                                Dashboard
+                            </span>
+                        </h1>
+                        <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                            Choose the dashboard that best fits your role and start managing your financial data with powerful insights.
+                        </p>
+                    </div>
 
-                                <div className="relative mx-4 -mt-8 h-40 md:h-48 overflow-hidden rounded-lg bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-500/40 bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center p-4">
-                                    <Image
-                                        height={120}
-                                        width={120}
-                                        src="/img2.png" 
-                                        alt="Contractor Icon"
-                                        className='object-contain transition-transform duration-300 group-hover:scale-110'
-                                    />
+                    {/* Dashboard Cards */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+                        {dashboardOptions.map((option, index) => {
+                            const Icon = option.icon;
+                            return (
+                                <div 
+                                    key={option.title}
+                                    className="group animate-fade-in-up"
+                                    style={{ animationDelay: `${index * 0.2}s` }}
+                                >
+                                    <div className="relative bg-slate-800 rounded-2xl border border-slate-700 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:scale-105">
+                                        {/* Header with Icon */}
+                                        <div className={`relative h-48 bg-gradient-to-r ${option.gradientClass} flex items-center justify-center p-8`}>
+                                            <div className="absolute inset-0 bg-black/20"></div>
+                                            <div className="relative z-10 flex flex-col items-center">
+                                                <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mb-4 backdrop-blur-sm">
+                                                    <Icon className="w-10 h-10 text-white" />
+                                                </div>
+                                                <Image
+                                                    height={80}
+                                                    width={80}
+                                                    src={option.image}
+                                                    alt={`${option.title} Icon`}
+                                                    className="object-contain transition-transform duration-300 group-hover:scale-110"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="p-8">
+                                            <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary-400 transition-colors duration-300">
+                                                {option.title}
+                                            </h3>
+                                            <p className="text-slate-300 mb-6 leading-relaxed">
+                                                {option.description}
+                                            </p>
+
+                                            {/* Features List */}
+                                            <div className="mb-8">
+                                                <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wide mb-4">
+                                                    Key Features
+                                                </h4>
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    {option.features.map((feature, featureIndex) => (
+                                                        <div key={feature} className="flex items-center space-x-2">
+                                                            <div className={`w-2 h-2 rounded-full ${option.colorClass}`}></div>
+                                                            <span className="text-sm text-slate-300">{feature}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* CTA Button */}
+                                            <Link href={option.href}>
+                                                <button className="w-full group/btn relative inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 focus-ring overflow-hidden">
+                                                    <span className="relative z-10 flex items-center">
+                                                        View Dashboard
+                                                        <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                                                    </span>
+                                                    <span className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="p-6 text-center">
-                                    <h5 className="mb-3 font-sans text-xl md:text-2xl font-semibold leading-snug tracking-normal text-white antialiased">
-                                        Contractor Dashboard
-                                    </h5>
-                                    <p className="font-sans text-base md:text-lg font-light leading-relaxed text-gray-400 antialiased">
-                                        Access comprehensive analytics and tools tailored for contractors to manage projects efficiently.
-                                    </p>
-                                </div>
-                                <div className="p-6 pt-0 text-center">
-                                    <Link href="/contractorDashboard">
-                                        <button
-                                            data-ripple-light="true"
-                                            type="button"
-                                            className="select-none rounded-lg bg-purple-600 py-3 md:py-4 px-6 md:px-8 text-center align-middle font-sans text-sm md:text-base font-bold uppercase text-white shadow-md shadow-purple-500/20
-                                            transition-all duration-300 ease-in-out
-                                            hover:shadow-lg hover:shadow-purple-500/40 hover:bg-purple-700
-                                            focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none
-                                            disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        >
-                                            View Dashboard
-                                        </button>
-                                    </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Additional Info Section */}
+                    <div className="mt-20 text-center animate-fade-in-up animation-delay-500">
+                        <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-8 md:p-12 max-w-4xl mx-auto">
+                            <div className="flex justify-center mb-6">
+                                <div className="w-16 h-16 bg-primary-500/20 rounded-2xl flex items-center justify-center">
+                                    <TrendingUp className="w-8 h-8 text-primary-400" />
                                 </div>
                             </div>
-                        </section>
-
-                        {/* Owner Card */}
-                        <section className="group">
-                            <div className="relative flex w-full max-w-xs flex-col rounded-xl bg-gray-800 border border-gray-700 text-gray-200 shadow-xl overflow-hidden
-                                transition-all duration-300 ease-in-out transform
-                                hover:scale-105 hover:shadow-2xl hover:border-pink-500">
-
-                                <div className="relative mx-4 -mt-8 h-40 md:h-48 overflow-hidden rounded-lg bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-500/40 bg-gradient-to-r from-teal-600 to-teal-800 flex items-center justify-center p-4">
-                                    <Image
-                                        height={120}
-                                        width={120}
-                                        src="/img1.png" 
-                                        alt="Owner Icon"
-                                        className='object-contain transition-transform duration-300 group-hover:scale-110'
-                                    />
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                                Powerful Analytics at Your Fingertips
+                            </h3>
+                            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+                                Both dashboards provide comprehensive financial insights, real-time data visualization, 
+                                and advanced reporting capabilities to help you make informed decisions.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-6 text-slate-400">
+                                <div className="flex items-center space-x-2">
+                                    <Calculator className="w-5 h-5 text-primary-400" />
+                                    <span className="text-sm font-medium">Advanced Calculators</span>
                                 </div>
-                                <div className="p-6 text-center">
-                                    <h5 className="mb-3 block font-sans text-xl md:text-2xl font-semibold leading-snug tracking-normal text-white antialiased">
-                                        Owner Dashboard
-                                    </h5>
-                                    <p className="block font-sans text-base md:text-lg font-light leading-relaxed text-gray-400 antialiased">
-                                        Gain insights and manage your properties with advanced analytics as an owner.
-                                    </p>
+                                <div className="flex items-center space-x-2">
+                                    <TrendingUp className="w-5 h-5 text-success-400" />
+                                    <span className="text-sm font-medium">Real-time Analytics</span>
                                 </div>
-                                <div className="p-6 pt-0 text-center">
-                                    <Link href="/ownerDashboard">
-                                        <button
-                                            data-ripple-light="true"
-                                            type="button"
-                                            className="select-none rounded-lg bg-pink-600 py-3 md:py-4 px-6 md:px-8 text-center align-middle font-sans text-sm md:text-base font-bold uppercase text-white shadow-md shadow-pink-500/20
-                                            transition-all duration-300 ease-in-out
-                                            hover:shadow-lg hover:shadow-pink-500/40 hover:bg-pink-700
-                                            focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none
-                                            disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        >
-                                            View Dashboard
-                                        </button>
-                                    </Link>
+                                <div className="flex items-center space-x-2">
+                                    <Building2 className="w-5 h-5 text-warning-400" />
+                                    <span className="text-sm font-medium">Project Management</span>
                                 </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
