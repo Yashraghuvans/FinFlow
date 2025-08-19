@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react'; 
+import { Menu, X, Home, Info, BarChart3, UserPlus } from 'lucide-react'; 
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,64 +27,91 @@ const NavBar = () => {
   };
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Dashboard", href: "/dashpage" },
-    { name: "Sign Up", href: "/signin" },
+    { name: "Home", href: "/", icon: Home },
+    { name: "About", href: "/about", icon: Info },
+    { name: "Dashboard", href: "/dashpage", icon: BarChart3 },
+    { name: "Sign Up", href: "/signin", icon: UserPlus },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-[99] transition-all duration-300 ease-in-out
-      ${isScrolled ? 'bg-gray-950/90 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
+    <nav 
+      className={`fixed top-0 left-0 w-full z-[99] transition-all duration-300 ease-in-out
+        ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-slate-700/50' : 'bg-transparent'}`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className='container mx-auto px-4 md:px-8 lg:px-12 py-4 flex items-center justify-between'>
-        <Link href="/" legacyBehavior>
-          <a className="flex items-center group">
-            <img src="favicon.ico" alt="FinFlow Logo" className='h-10 w-10 md:h-12 md:w-12 rounded-full transition-transform duration-300 group-hover:scale-110' />
-            <span className='ml-3 text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300'>FinFlow</span>
-          </a>
+        {/* Logo */}
+        <Link href="/" className="flex items-center group focus-ring">
+          <div className="relative">
+            <img 
+              src="favicon.ico" 
+              alt="FinFlow Logo" 
+              className='h-10 w-10 md:h-12 md:w-12 rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg' 
+            />
+            <div className="absolute inset-0 rounded-xl bg-primary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <span className='ml-3 text-xl md:text-2xl font-bold text-white group-hover:text-primary-400 transition-colors duration-300'>
+            FinFlow
+          </span>
         </Link>
-        <div className='hidden md:flex space-x-6 lg:space-x-8'>
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} legacyBehavior>
-              <a className='text-base lg:text-lg font-medium uppercase text-gray-300 hover:text-blue-400 transition-colors duration-300 relative group'>
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            </Link>
-          ))}
+
+        {/* Desktop Navigation */}
+        <div className='hidden md:flex items-center space-x-1 lg:space-x-2'>
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link key={link.name} href={link.href} className="nav-link focus-ring">
+                <span className="flex items-center px-3 py-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200">
+                  <Icon className="w-4 h-4 mr-2" />
+                  {link.name}
+                </span>
+              </Link>
+            );
+          })}
         </div>
+
+        {/* Mobile Menu Button */}
         <div className='md:hidden'>
-          <button onClick={toggleMenu} className='text-white focus:outline-none'>
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <button 
+            onClick={toggleMenu} 
+            className='text-white focus-ring p-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200'
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className='md:hidden fixed inset-0 bg-gray-950/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8 animate-fade-in'>
-          <button onClick={toggleMenu} className='absolute top-6 right-6 text-white focus:outline-none'>
-            <X size={32} />
+        <div className='md:hidden fixed inset-0 bg-slate-900/98 backdrop-blur-lg flex flex-col items-center justify-center space-y-6 animate-fade-in z-50'>
+          <button 
+            onClick={toggleMenu} 
+            className='absolute top-6 right-6 text-white focus-ring p-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200'
+            aria-label="Close navigation menu"
+          >
+            <X size={28} />
           </button>
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} legacyBehavior>
-              <a
-                className='text-2xl font-bold uppercase text-gray-200 hover:text-blue-400 transition-colors duration-300'
-                onClick={toggleMenu}
-              >
-                {link.name}
-              </a>
-            </Link>
-          ))}
+          
+          {navLinks.map((link, index) => {
+            const Icon = link.icon;
+            return (
+              <Link key={link.name} href={link.href}>
+                <button
+                  className='flex items-center text-2xl font-semibold text-slate-200 hover:text-primary-400 transition-all duration-300 focus-ring p-4 rounded-lg hover:bg-slate-800/50 transform hover:scale-105'
+                  onClick={toggleMenu}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <Icon className="w-6 h-6 mr-3" />
+                  {link.name}
+                </button>
+              </Link>
+            );
+          })}
         </div>
       )}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-      `}</style>
     </nav>
   );
 };
