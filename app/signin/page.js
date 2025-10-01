@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { IoLogoGoogle } from "react-icons/io5";
 import { FaFacebookF } from "react-icons/fa";
 import { FaMicrosoft } from "react-icons/fa";
@@ -11,7 +11,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const SignIn = () => {
-    const notify = () => toast.success('Account Created Successfully!', {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const notify = () => toast.success('Signed in successfully!', {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -22,6 +25,36 @@ const SignIn = () => {
         theme: "dark",
         transition: Bounce,
     });
+
+    async function handleSignIn(e) {
+        e.preventDefault();
+        const lower = (username || '').toLowerCase();
+        if (lower === 'owner' && password === 'owner') {
+            localStorage.setItem('finflow_auth', JSON.stringify({ user: 'owner', role: 'OWNER' }));
+            const { seedDummyProject } = await import('../lib/api/projectTrackerApi');
+            await seedDummyProject();
+            notify();
+            window.location.href = '/ownerDashboard';
+        } else if (lower === 'contractor' && password === 'contractor') {
+            localStorage.setItem('finflow_auth', JSON.stringify({ user: 'contractor', role: 'CONTRACTOR' }));
+            const { seedDummyProject } = await import('../lib/api/projectTrackerApi');
+            await seedDummyProject();
+            notify();
+            window.location.href = '/contractorDashboard';
+        } else {
+            toast.error('Invalid credentials', { position: 'top-center', theme: 'dark' });
+        }
+    }
+
+    function quickFill(role) {
+        if (role === 'OWNER') {
+            setUsername('owner');
+            setPassword('owner');
+        } else if (role === 'CONTRACTOR') {
+            setUsername('contractor');
+            setPassword('contractor');
+        }
+    }
 
     return (
         <>
@@ -54,44 +87,54 @@ const SignIn = () => {
                 <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-8 sm:px-6 md:px-10 lg:px-16">
                     <div className="w-full max-w-md bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-8 border border-gray-700 flex flex-col gap-5">
                         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-white">Sign In</h2>
-                        <div className="relative">
-                            <input
-                                type='text'
-                                placeholder='Full Name'
-                                className='peer p-4 w-full bg-transparent border-b-2 border-gray-500 focus:border-purple-500 outline-none text-white text-base md:text-lg transition-all duration-300 placeholder-transparent'
-                                id="name"
-                            />
-                           
-                        </div>
-                        <div className="relative">
-                            <input
-                                type='email'
-                                placeholder='Email Address'
-                                className='peer p-4 w-full bg-transparent border-b-2 border-gray-500 focus:border-purple-500 outline-none text-white text-base md:text-lg transition-all duration-300 placeholder-transparent'
-                                id="email"
-                            />
-                            
-                        </div>
-                        <div className="relative">
-                            <input
-                                type='password'
-                                placeholder='Password'
-                                className='peer p-4 w-full bg-transparent border-b-2 border-gray-500 focus:border-purple-500 outline-none text-white text-base md:text-lg transition-all duration-300 placeholder-transparent'
-                                id="password"
-                            />
-                            
-                        </div>
-                        <Link href='/dashpage' passHref>
+                        <form onSubmit={handleSignIn} className="space-y-4">
+                            <div className="relative">
+                                <input
+                                    type='text'
+                                    placeholder='Username'
+                                    className='peer p-4 w-full bg-transparent border-b-2 border-primary-600 focus:border-purple-500 outline-none text-white text-base md:text-lg transition-all duration-300'
+                                    value={username}
+                                    onChange={(e)=>setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="relative">
+                                <input
+                                    type='password'
+                                    placeholder='Password'
+                                    className='peer p-4 w-full bg-transparent border-b-2 border-primary-600 focus:border-purple-500 outline-none text-white text-base md:text-lg transition-all duration-300'
+                                    value={password}
+                                    onChange={(e)=>setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
                             <button
-                                className='relative inline-flex items-center justify-center w-full px-8 py-3 text-lg font-bold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700
-                                    transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group overflow-hidden'
-                                onClick={notify}
-                                type="button"
+                                className='relative inline-flex items-center justify-center w-full px-8 py-3 text-lg font-bold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group overflow-hidden'
+                                type="submit"
                             >
-                                Get Started
+                                Sign In
                                 <span className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             </button>
-                        </Link>
+                        </form>
+                        <div className="p-4 bg-slate-800/70 rounded-lg border border-slate-700">
+                            <div className="text-sm text-gray-300 mb-3">Demo credentials</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-400 mb-3">
+                                <div className="space-y-1">
+                                    <div className="text-gray-300">Owner</div>
+                                    <div>Username: <span className="text-white">owner</span></div>
+                                    <div>Password: <span className="text-white">owner</span></div>
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="text-gray-300">Contractor</div>
+                                    <div>Username: <span className="text-white">contractor</span></div>
+                                    <div>Password: <span className="text-white">contractor</span></div>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <button type="button" onClick={() => quickFill('OWNER')} className="btn btn-secondary">Fill Owner</button>
+                                <button type="button" onClick={() => quickFill('CONTRACTOR')} className="btn btn-secondary">Fill Contractor</button>
+                            </div>
+                        </div>
                         <div className='flex items-center my-2'>
                             <hr className='flex-grow border-t border-gray-700' />
                             <span className='px-3 text-gray-400 text-base'>Or continue with</span>
