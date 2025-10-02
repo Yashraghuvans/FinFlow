@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
-import { fetchProjects, createProject } from "../lib/api/projectApi";
+import { getProject, saveProject } from "../lib/api/projectTrackerApi";
 
 export function useContractorDashboard() {
-  const [projects, setProjects] = useState([]);
+  const [project, setProject] = useState(null);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 
@@ -13,8 +13,8 @@ export function useContractorDashboard() {
     (async () => {
       try {
         setLoading(true);
-        const data = await fetchProjects();
-        if (mounted) setProjects(data);
+        const data = await getProject();
+        if (mounted) setProject(data);
       } catch {
         setError("Failed to load projects");
       } finally {
@@ -24,29 +24,33 @@ export function useContractorDashboard() {
     return () => { mounted = false; };
   }, []);
 
-  const addProject = useCallback(async (data) => {
+  const setupProject = useCallback(async (data) => {
     try {
-      const { projectValue, projectTimePeriod } = data;
-      const preEmi = projectValue && projectTimePeriod
-        ? (projectValue / projectTimePeriod).toFixed(2)
-        : 0;
-
-      const newProject = { ...data, preEmi };
-      setProjects(prev => [...prev, newProject]);
-      await createProject(newProject);
+      const newProject = {
+        projectName: data.projectName || "Untitled Project",
+        builderName: data.builderName || "",
+        totalCost: Number(data.totalCost) || 0,
+        downPayment: Number(data.downPayment) || 0,
+        sanctionedLoanAmount: Number(data.sanctionedLoanAmount) || 0,
+        annualInterestRate: Number(data.annualInterestRate) || 0,
+        loanTenureYears: Number(data.loanTenureYears) || 0,
+        milestones: data.milestones || [],
+        invoices: [],
+        transactions: [],
+      };
+      setProject(newProject);
+      await saveProject(newProject);
     } catch {
       setError("Failed to add project");
     }
   }, []);
 
   const totals = useMemo(() => {
-    const revenue  = projects.reduce((s, p) => s + (parseFloat(p.revenue) || 0), 0);
-    const expenses = projects.reduce((s, p) => s + (parseFloat(p.expenses) || 0), 0);
-    const margin   = revenue ? ((revenue - expenses) / revenue) * 100 : 0;
-    return { revenue, expenses, margin };
-  }, [projects]);
+    if (!project) return { revenue: 0, expenses: 0, margin: 0 };
+    return { revenue: 0, expenses: 0, margin: 0 };
+  }, [project]);
 
-  return { projects, addProject, loading, error, totals };
+  return { project, setupProject, loading, error, totals };
 }
 
 
