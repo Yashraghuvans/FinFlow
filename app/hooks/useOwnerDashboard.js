@@ -1,77 +1,62 @@
 "use client";
 
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { fetchLoans, createLoan } from "../lib/api/loanApi";
+import { getProject, saveProject, clearProject } from "../lib/api/projectTrackerApi";
 
-export function useOwnerDashboard(searchParams) {
-  const [loanData, setLoanData] = useState([]);
-  const [calculatedEMI, setCalculatedEMI] = useState(null);
-  const [currentLoanParams, setCurrentLoanParams] = useState(null);
+export function useOwnerDashboard() {
+  const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const param = searchParams?.get?.("loanData");
-    if (param) {
-      try {
-        setLoanData(JSON.parse(param));
-      } catch (err) {
-        // ignore parse errors
-      }
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
         setLoading(true);
-        const loans = await fetchLoans();
-        if (mounted && !searchParams?.get?.("loanData")) {
-          setLoanData(loans);
-        }
+        const data = await getProject();
+        if (mounted) setProject(data);
       } catch (e) {
-        setError("Failed to load loans");
+        setError("Failed to load project");
       } finally {
         setLoading(false);
       }
     })();
     return () => { mounted = false; };
-  }, [searchParams]);
+  }, []);
 
-  const addLoan = useCallback(async (newLoan) => {
+  const initializeProject = useCallback(async (projectData) => {
     try {
-      setLoanData(prev => [...prev, newLoan]);
-      await createLoan(newLoan);
-    } catch (e) {
-      setError("Failed to add loan");
+      setProject(projectData);
+      await saveProject(projectData);
+    } catch {
+      setError("Failed to save project");
     }
   }, []);
 
-  const handleCalculateEMI = useCallback((loanParams) => {
-    setCurrentLoanParams(loanParams);
+  const resetProject = useCallback(async () => {
+    try {
+      await clearProject();
+      setProject(null);
+    } catch {
+      setError("Failed to clear project");
+    }
   }, []);
 
-  const handleRecalculate = useCallback((loan) => {
-    setCurrentLoanParams(loan);
-  }, []);
-
-  const stats = useMemo(() => ({
-    totalLoans: loanData.length,
-    totalAmount: loanData.reduce((s, l) => s + (parseFloat(l.loanAmount) || 0), 0),
-    averageInterest: loanData.length
-      ? (loanData.reduce((s, l) => s + (parseFloat(l.interestRate) || 0), 0) / loanData.length)
-      : 0
-  }), [loanData]);
+  const stats = useMemo(() => {
+    if (!project) return null;
+    const totalInvoices = project.invoices?.length || 0;
+    const totalTransactions = project.transactions?.length || 0;
+    const paidToBuilder = (project.transactions || [])
+      .filter(t => t.type === 'Owner Direct Payment' || t.type === 'Bank Disbursement')
+      .reduce((s, t) => s + (Number(t.amount) || 0), 0);
+    return { totalInvoices, totalTransactions, paidToBuilder };
+  }, [project]);
 
   return {
-    loanData,
-    calculatedEMI,
-    setCalculatedEMI,
-    currentLoanParams,
-    addLoan,
-    handleCalculateEMI,
-    handleRecalculate,
+    project,
+    setProject,
+    initializeProject,
+    resetProject,
     loading,
     error,
     stats,
