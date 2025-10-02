@@ -1,39 +1,32 @@
 "use client";
 
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import DashboardHeader from "../components/DashboardHeader";
-import StatCard from "../components/StatCard";
-import { Building2, DollarSign, TrendingUp, BarChart3, Download } from "lucide-react";
-import PreEMIInputForm from "../components/PreEMIInputForm";
-import FormInputDetails from "../components/FormInputDetails";
-import BudgetAnalysis from "../components/BudgetAnalysis";
-import BudgetPieChart from "../components/BudgetPieChart";
-import ProfitLossComparison from "../components/ProfitLossComparison";
-import ProfitBarChart from "../components/ProfitBarChart";
+import { Building2, Download } from "lucide-react";
+import ProjectSetupForm from "../components/ProjectSetupForm";
+import { generateId, upsertInvoice } from "../lib/api/projectTrackerApi";
 
-function ContractorDashboardView({ projects, addProject, loading, error }) {
-  const stats = useMemo(() => {
-    const total = projects.length;
-    const revenue = projects.reduce((s, p) => s + (parseFloat(p.revenue) || 0), 0).toLocaleString();
-    const expenses = projects.reduce((s, p) => s + (parseFloat(p.expenses) || 0), 0).toLocaleString();
-    const margin = (() => {
-      const r = projects.reduce((s, p) => s + (parseFloat(p.revenue) || 0), 0);
-      const e = projects.reduce((s, p) => s + (parseFloat(p.expenses) || 0), 0);
-      return r ? (((r - e) / r) * 100).toFixed(1) : "0.0";
-    })();
-    return [
-      { title: "Projects", value: total, icon: Building2, gradientClass: "from-primary-500 to-primary-600", trend: "+12%", trendType: "positive" },
-      { title: "Revenue", value: `₹${revenue}`, icon: DollarSign, gradientClass: "from-success-500 to-success-600", trend: "+8.2%", trendType: "positive" },
-      { title: "Expenses", value: `₹${expenses}`, icon: TrendingUp, gradientClass: "from-warning-500 to-warning-600", trend: "-3.1%", trendType: "negative" },
-      { title: "Profit Margin", value: `${margin}%`, icon: BarChart3, gradientClass: "from-teal-500 to-teal-600", trend: "+5.7%", trendType: "positive" },
-    ];
-  }, [projects]);
+function ContractorDashboardView({ project, setupProject, loading, error }) {
+  const handleSubmitInvoice = async (milestone) => {
+    if (!project) return;
+    const amount = Number(((Number(project.totalCost||0) * (Number(milestone.percentageOfCost)||0)) / 100).toFixed(2));
+    const invoice = {
+      id: generateId('inv'),
+      milestoneId: milestone.id,
+      invoiceNumber: `INV-${Math.floor(Math.random()*100000)}`,
+      amount,
+      dueDate: new Date(Date.now() + 7*24*60*60*1000).toISOString(),
+      status: 'Due',
+    };
+    await upsertInvoice(invoice);
+    // TODO: In a real application, this would be an API call to the backend to ensure real-time updates.
+  };
   return (
     <div className="pt-24 pb-8">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <DashboardHeader
           title="Contractor's Dashboard"
-          subtitle="Manage your projects and track financial performance"
+          subtitle="Set up project and submit milestone invoices"
           icon={Building2}
           gradientClass="from-primary-500 to-primary-600"
           actions={[{ label: "Export", icon: Download, variant: "secondary" }]}
@@ -51,44 +44,41 @@ function ContractorDashboardView({ projects, addProject, loading, error }) {
           </div>
         ) : (
           <>
-            {/* Stats Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {stats.map((s) => (
-                <StatCard key={s.title} {...s} />
-              ))}
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Enter Project Details</h2>
-                <PreEMIInputForm onSubmit={addProject} className="w-full m-0" />
+            <div className="grid grid-cols-1 2xl:grid-cols-3 gap-6 mb-6">
+              <div className="card 2xl:col-span-2">
+                <h2 className="text-lg font-semibold mb-4 text-white">Project Setup</h2>
+                <ProjectSetupForm onSubmit={setupProject} className="w-full m-0" />
               </div>
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Budget Analysis Chart</h2>
-                <BudgetPieChart projects={projects} />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Details</h2>
-                <FormInputDetails formData={projects} />
-              </div>
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Budget Analysis</h2>
-                <BudgetAnalysis projects={projects} />
-              </div>
+              {project && (
+                <div className="card">
+                  <h2 className="text-lg font-semibold mb-4 text-white">Quick Stats</h2>
+                  <div className="space-y-3 text-gray-200">
+                    <div className="flex items-center justify-between"><span>Total Cost</span><span className="text-white font-medium">₹{Number(project.totalCost||0).toLocaleString()}</span></div>
+                    <div className="flex items-center justify-between"><span>Sanctioned Loan</span><span className="text-white font-medium">₹{Number(project.sanctionedLoanAmount||0).toLocaleString()}</span></div>
+                    <div className="flex items-center justify-between"><span>Milestones</span><span className="text-white font-medium">{project.milestones?.length||0}</span></div>
+                    <div className="flex items-center justify-between"><span>Invoices</span><span className="text-white font-medium">{project.invoices?.length||0}</span></div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            {project && (
               <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Profit/Loss Analysis</h2>
-                <ProfitLossComparison projects={projects} />
+                <h2 className="text-lg font-semibold mb-4 text-white">Milestones</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {project.milestones?.map(m => (
+                    <div key={m.id} className="p-4 bg-slate-800 rounded border border-slate-700">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-white font-medium">{m.name}</div>
+                        <span className="text-xs px-2 py-1 rounded bg-indigo-600 text-white">{m.percentageOfCost}%</span>
+                      </div>
+                      <div className="text-gray-400 text-sm mb-3">{m.isCompleted ? 'Completed' : 'Pending'}</div>
+                      <button className="btn btn-primary w-full" onClick={() => handleSubmitInvoice(m)}>Submit Invoice</button>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Profit Bar Chart</h2>
-                <ProfitBarChart projects={projects} />
-              </div>
-            </div>
+            )}
           </>
         )}
       </div>
