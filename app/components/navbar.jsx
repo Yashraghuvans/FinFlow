@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, Info, BarChart3, UserPlus } from 'lucide-react'; 
+import { Menu, X, Home, Info, BarChart3, UserPlus, LogOut, User } from 'lucide-react'; 
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,11 +26,22 @@ const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const [auth, setAuth] = useState(null);
+  useEffect(() => {
+    try { setAuth(JSON.parse(localStorage.getItem('finflow_auth'))); } catch { setAuth(null); }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('finflow_auth');
+    setAuth(null);
+    window.location.href = '/signin';
+  };
+
   const navLinks = [
     { name: "Home", href: "/", icon: Home },
     { name: "About", href: "/about", icon: Info },
-    { name: "Dashboard", href: "/dashpage", icon: BarChart3 },
-    { name: "Sign Up", href: "/signin", icon: UserPlus },
+    // remove generic dashboard link
+    { name: auth?.role === 'OWNER' ? 'Owner Dashboard' : auth?.role === 'CONTRACTOR' ? 'Contractor Dashboard' : 'Sign In', href: auth?.role === 'OWNER' ? '/ownerDashboard' : auth?.role === 'CONTRACTOR' ? '/contractorDashboard' : '/signin', icon: auth?.role ? BarChart3 : UserPlus },
   ];
 
   return (
@@ -69,6 +80,21 @@ const NavBar = () => {
               </Link>
             );
           })}
+          {auth && (
+            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-slate-700">
+              <div className="flex items-center text-slate-300 text-sm">
+                <User className="w-4 h-4 mr-2" />
+                {auth.role}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="flex items-center px-3 py-2 rounded-lg hover:bg-red-600/20 text-red-400 hover:text-red-300 transition-colors duration-200 focus-ring"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -110,6 +136,21 @@ const NavBar = () => {
               </Link>
             );
           })}
+          {auth && (
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <div className="flex items-center justify-center text-slate-300 text-lg mb-4">
+                <User className="w-5 h-5 mr-2" />
+                {auth.role}
+              </div>
+              <button
+                onClick={() => { handleLogout(); toggleMenu(); }}
+                className='flex items-center text-xl font-semibold text-red-400 hover:text-red-300 transition-all duration-300 focus-ring p-4 rounded-lg hover:bg-red-600/20 transform hover:scale-105'
+              >
+                <LogOut className="w-5 h-5 mr-3" />
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       )}
     </nav>

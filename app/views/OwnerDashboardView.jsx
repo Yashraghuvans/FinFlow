@@ -2,47 +2,31 @@
 
 import React, { memo, useMemo } from "react";
 import DashboardHeader from "../components/DashboardHeader";
-import StatCard from "../components/StatCard";
-import { Home, CreditCard, DollarSign, TrendingUp, Calculator, Download } from "lucide-react";
-import LoanInputForm from "../components/LoanInputForm";
-import EMICalculator from "../components/EMICalculator";
-import LoanSavingsPieChart from "../components/LoanSavingsPieChart";
-import LoanDataTable from "../components/LoanDataTable";
-import LoanDetailsTable from "../components/LoanDetailsTable";
-import EMIWithPrepaymentGraph from "../components/EMIWithPrepaymentGraph";
-import EMIOutstandingGraph from "../components/EMIOutstandingGraph";
+import { Home, Download } from "lucide-react";
+import MilestoneTracker from "../components/MilestoneTracker";
+import InvoiceList from "../components/InvoiceList";
+import TransactionHistory from "../components/TransactionHistory";
+import FinancialSummary from "../components/FinancialSummary";
 
-function OwnerDashboardView({
-  loanData,
-  calculatedEMI,
-  setCalculatedEMI,
-  currentLoanParams,
-  addLoan,
-  handleCalculateEMI,
-  handleRecalculate,
-  loading,
-  error,
-}) {
-  const stats = useMemo(() => {
-    const totalLoans = loanData.length;
-    const totalAmount = loanData.reduce((s, l) => s + (parseFloat(l.loanAmount) || 0), 0).toLocaleString();
-    const avgInterest = loanData.length
-      ? (loanData.reduce((s, l) => s + (parseFloat(l.interestRate) || 0), 0) / loanData.length).toFixed(2)
-      : "0.00";
+function OwnerDashboardView({ project, setProject, loading, error, stats }) {
+  const summaryStats = useMemo(() => {
+    if (!project) return [];
+    const totalCost = Number(project.totalCost || 0).toLocaleString();
+    const sanctioned = Number(project.sanctionedLoanAmount || 0).toLocaleString();
+    const down = Number(project.downPayment || 0).toLocaleString();
     return [
-      { title: "Total Loans", value: totalLoans, icon: CreditCard, gradientClass: "from-primary-500 to-primary-600", trend: "+12%", trendType: "positive" },
-      { title: "Total Amount", value: `₹${totalAmount}`, icon: DollarSign, gradientClass: "from-success-500 to-success-600", trend: "+6.4%", trendType: "positive" },
-      { title: "Avg Interest", value: `${avgInterest}%`, icon: TrendingUp, gradientClass: "from-warning-500 to-warning-600", trend: "-1.2%", trendType: "negative" },
-      { title: "EMI (current)", value: calculatedEMI ? `₹${calculatedEMI.toLocaleString()}` : "₹0", icon: Calculator, gradientClass: "from-teal-500 to-teal-600", trend: "+3.1%", trendType: "positive" },
+      { title: "Total Cost", value: `₹${totalCost}` },
+      { title: "Sanctioned Loan", value: `₹${sanctioned}` },
+      { title: "Down Payment", value: `₹${down}` },
     ];
-  }, [loanData, calculatedEMI]);
+  }, [project]);
 
   return (
     <div className="pt-24 pb-8">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <DashboardHeader
           title="Owner's Dashboard"
-          subtitle="Manage your home loans and track EMI payments"
+          subtitle="Track phased real-estate payments"
           icon={Home}
           gradientClass="from-teal-500 to-teal-600"
           actions={[
@@ -62,44 +46,23 @@ function OwnerDashboardView({
           </div>
         ) : (
           <>
-            {/* Stats Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {stats.map((s) => (
-                <StatCard key={s.title} {...s} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {summaryStats.map((s) => (
+                <div key={s.title} className="card">
+                  <div className="text-gray-400 text-xs uppercase">{s.title}</div>
+                  <div className="text-white text-2xl font-semibold">{s.value}</div>
+                </div>
               ))}
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Add New Loan</h2>
-                <LoanInputForm onLoanSubmit={addLoan} onCalculateEMI={handleCalculateEMI} />
-              </div>
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">EMI Calculator</h2>
-                <EMICalculator loanParams={currentLoanParams} setCalculatedEMI={setCalculatedEMI} />
-                <div className="mt-6">
-                  <h2 className="text-lg font-semibold mb-4 text-white">Loan Savings Overview</h2>
-                  {currentLoanParams && <LoanSavingsPieChart loanParams={currentLoanParams} />}
-                </div>
-              </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
+              <MilestoneTracker milestones={project?.milestones} />
+              <InvoiceList project={project} onProjectChange={setProject} />
+              <FinancialSummary project={project} />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="card overflow-x-auto">
-                <h2 className="text-lg font-semibold mb-4 text-white">All Loans</h2>
-                <LoanDataTable loans={loanData} onRecalculate={handleRecalculate} />
-              </div>
-              <div className="card h-[350px]">
-                <h2 className="text-lg font-semibold mb-4 text-white">EMI With Prepayment Graph</h2>
-                <EMIWithPrepaymentGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
-              </div>
-              <div className="card">
-                <h2 className="text-lg font-semibold mb-4 text-white">Loan Details</h2>
-                <LoanDetailsTable loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
-              </div>
-              <div className="card h-[350px]">
-                <h2 className="text-lg font-semibold mb-4 text-white">EMI Outstanding Graph</h2>
-                <EMIOutstandingGraph loanParams={currentLoanParams} calculatedEMI={calculatedEMI} />
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+              <TransactionHistory project={project} />
             </div>
           </>
         )}
