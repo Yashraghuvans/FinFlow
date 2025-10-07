@@ -124,12 +124,6 @@ You can refer [to the React documentation](https://react.dev/learn) for more inf
 4. The project is using the latest versions of all the libraries mentioned above.
 5. Create and/or assign an issue to yourself before working on any feature.
 
-## Snapshots 
-
-<img width="1249" height="722" alt="2" src="https://github.com/user-attachments/assets/294e19da-33b5-4374-8898-845a5806dc61" />
-<br><br>
-<img width="1253" height="719" alt="1" src="https://github.com/user-attachments/assets/fac56bdf-5773-40ba-b2fe-9fcc715b3acd" />
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
