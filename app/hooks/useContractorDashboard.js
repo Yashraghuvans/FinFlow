@@ -2,12 +2,19 @@
 
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { getProject, saveProject } from "../lib/api/projectTrackerApi";
+import syncManager from "../lib/api/syncManager";
 
 export function useContractorDashboard() {
   const [project, setProject] = useState(null);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 
+  // Initialize sync manager
+  useEffect(() => {
+    syncManager.init();
+  }, []);
+
+  // Load initial project data
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -22,6 +29,16 @@ export function useContractorDashboard() {
       }
     })();
     return () => { mounted = false; };
+  }, []);
+
+  // Subscribe to real-time updates
+  useEffect(() => {
+    const unsubscribe = syncManager.subscribe((updatedProject, source) => {
+      console.log(`[Contractor Dashboard] Received update from ${source}`);
+      setProject(updatedProject);
+    });
+
+    return unsubscribe;
   }, []);
 
   const setupProject = useCallback(async (data) => {
