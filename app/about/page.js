@@ -1,5 +1,6 @@
 "use client";
 import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react';
 import NavBar from '../components/navbar';
 
@@ -11,6 +12,37 @@ const About = () => {
                 <div className="container mx-auto max-w-5xl bg-gray-800/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden relative z-10 p-8 md:p-12 border border-gray-700">
                     <div className="flex flex-col lg:flex-row gap-10 items-center">
                         <div className="w-full lg:w-4/12 flex justify-center lg:justify-start">
+                            <div className="relative w-56 h-72 md:w-64 md:h-80 lg:w-72 lg:h-96">
+                                {/* Animated gradient background glow */}
+                                <div className="absolute -inset-4 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-2xl blur-2xl opacity-40 animate-pulse"></div>
+                                
+                                {/* Animated border effect */}
+                                <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 animate-spin-slow opacity-75"></div>
+                                    <div className="absolute inset-[3px] bg-gray-900 rounded-2xl"></div>
+                                </div>
+                                
+                                {/* Photo frame with inner border */}
+                                <div className="relative w-full h-full p-3">
+                                    <div className="relative w-full h-full rounded-xl overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/50">
+                                        <Image
+                                            src="/yash.png"
+                                            alt="Yash Raghuvanshi"
+                                            fill
+                                            className="object-cover hover:scale-110 transition-transform duration-700 ease-out"
+                                            priority
+                                        />
+                                        {/* Overlay gradient on hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                                    </div>
+                                </div>
+                                
+                                {/* Corner decorations */}
+                                <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-purple-400 rounded-tl-lg"></div>
+                                <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-pink-400 rounded-tr-lg"></div>
+                                <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-blue-400 rounded-bl-lg"></div>
+                                <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-purple-400 rounded-br-lg"></div>
+                            </div>
                         </div>
                         <div className="w-full lg:w-8/12 text-center lg:text-left">
                             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
@@ -45,6 +77,20 @@ const About = () => {
                     </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes spin-slow {
+                    from {
+                        transform: rotate(0deg);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+                .animate-spin-slow {
+                    animation: spin-slow 8s linear infinite;
+                }
+            `}</style>
         </>
     );
 };
