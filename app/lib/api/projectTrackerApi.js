@@ -1,5 +1,7 @@
 "use client";
 
+import syncManager from "./syncManager";
+
 const STORAGE_KEY = "finflow_project_tracker";
 
 /**
@@ -55,6 +57,8 @@ function readLocal() {
 
 function writeLocal(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  // Broadcast changes to all listeners
+  syncManager.broadcast(data);
 }
 
 /**
@@ -131,43 +135,12 @@ export async function addTransaction(txn) {
 
 /**
  * Seeds a dummy project with milestones and an invoice for quick testing.
+ * @deprecated Use getCompleteMockProject() from mockData.js instead
  */
 export async function seedDummyProject() {
-  const demo = {
-    projectName: 'Sunrise Meadows - A-704',
-    builderName: 'ABC Constructions',
-    totalCost: 8000000,
-    downPayment: 1000000,
-    sanctionedLoanAmount: 6000000,
-    annualInterestRate: 8.5,
-    loanTenureYears: 20,
-    milestones: [
-      { id: generateId('ms'), name: 'Foundation', percentageOfCost: 10, isCompleted: true },
-      { id: generateId('ms'), name: '1st Floor Slab', percentageOfCost: 12, isCompleted: true },
-      { id: generateId('ms'), name: '5th Floor Slab', percentageOfCost: 15, isCompleted: false },
-      { id: generateId('ms'), name: 'Brickwork', percentageOfCost: 18, isCompleted: false },
-      { id: generateId('ms'), name: 'Finishing', percentageOfCost: 20, isCompleted: false },
-    ],
-    invoices: [],
-    transactions: [],
-  };
-
-  // Create one invoice against the second milestone
-  const ms = demo.milestones[1];
-  const inv = {
-    id: generateId('inv'),
-    milestoneId: ms.id,
-    invoiceNumber: 'INV-10001',
-    amount: Math.round((demo.totalCost * ms.percentageOfCost) / 100),
-    dueDate: new Date(Date.now() + 5*24*60*60*1000).toISOString(),
-    status: 'Due',
-  };
-  demo.invoices.push(inv);
-
-  // Add a previous bank disbursement and an owner direct payment for realism
-  demo.transactions.push({ id: generateId('txn'), invoiceId: inv.id, type: 'Bank Disbursement', amount: Math.round(inv.amount * 0.5), date: new Date(Date.now()-7*24*60*60*1000).toISOString(), notes: 'Initial bank disbursement' });
-  demo.transactions.push({ id: generateId('txn'), invoiceId: inv.id, type: 'Owner Direct Payment', amount: Math.round(inv.amount * 0.2), date: new Date(Date.now()-3*24*60*60*1000).toISOString(), notes: 'Owner part payment' });
-
+  // Import dynamically to avoid circular dependency
+  const { getCompleteMockProject } = await import('../mockData');
+  const demo = getCompleteMockProject();
   await saveProject(demo);
   return demo;
 }
