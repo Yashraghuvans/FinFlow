@@ -2,12 +2,19 @@
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { getProject, saveProject, clearProject } from "../lib/api/projectTrackerApi";
+import syncManager from "../lib/api/syncManager";
 
 export function useOwnerDashboard() {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Initialize sync manager
+  useEffect(() => {
+    syncManager.init();
+  }, []);
+
+  // Load initial project data
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -22,6 +29,16 @@ export function useOwnerDashboard() {
       }
     })();
     return () => { mounted = false; };
+  }, []);
+
+  // Subscribe to real-time updates
+  useEffect(() => {
+    const unsubscribe = syncManager.subscribe((updatedProject, source) => {
+      console.log(`[Owner Dashboard] Received update from ${source}`);
+      setProject(updatedProject);
+    });
+
+    return unsubscribe;
   }, []);
 
   const initializeProject = useCallback(async (projectData) => {
