@@ -1,7 +1,48 @@
-import { getScenariosData } from '../lib/actions';
+'use client';
 
-export default async function ScenariosPage() {
-  const { scenarios, loanId } = await getScenariosData();
+import { useEffect, useState } from 'react';
+import { firebaseGetScenarios } from '../lib/firebase-actions';
+import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
+
+export default function ScenariosPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+  const [scenarios, setScenarios] = useState([]);
+  const [loanId, setLoanId] = useState(null);
+  const [fetching, setFetching] = useState(true);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/signin');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    async function loadScenarios() {
+      if (user) {
+        try {
+          const data = await firebaseGetScenarios(user.uid);
+          setScenarios(data.scenarios);
+          setLoanId(data.loanId);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setFetching(false);
+        }
+      }
+    }
+    loadScenarios();
+  }, [user]);
+
+  if (authLoading || fetching) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">

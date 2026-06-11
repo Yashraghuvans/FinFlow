@@ -2,6 +2,7 @@ import "./globals.css";
 import NavBar from "./components/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthContext";
 
 export const metadata = {
   title: "FinFlow",
@@ -12,11 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NavBar />
-        <main className="pt-20 min-h-screen">
-          {children}
-        </main>
-        <ToastContainer position="top-right" theme="light" autoClose={2500} />
+        <AuthProvider>
+          <NavBar />
+          <main className="pt-20 min-h-screen">
+            {children}
+          </main>
+          <ToastContainer position="top-right" theme="dark" autoClose={2500} />
+        </AuthProvider>
       </body>
     </html>
   );

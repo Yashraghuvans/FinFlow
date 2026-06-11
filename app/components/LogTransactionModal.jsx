@@ -1,24 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import { addTransaction } from '../lib/actions';
-import { X, ArrowRight } from 'lucide-react';
+import { firebaseAddTransaction } from '../lib/firebase-actions';
+import { X, ArrowRight, Loader2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 export default function LogTransactionModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!user) return;
+
     setLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     
     try {
-      await addTransaction(data);
+      await firebaseAddTransaction(user.uid, data);
+      toast.success("Transaction logged!");
       setIsOpen(false);
+      // Refresh to show updated data
+      window.location.reload(); 
     } catch (err) {
-      alert('Error logging transaction');
+      console.error(err);
+      toast.error('Error logging transaction');
     } finally {
       setLoading(false);
     }
@@ -68,10 +79,14 @@ export default function LogTransactionModal() {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full btn-primary group"
+                  className="w-full btn-primary group disabled:opacity-70"
                 >
-                  {loading ? 'Saving...' : 'Save Record'}
-                  {!loading && <ArrowRight className="ml-2 w-4 h-4 opacity-70 group-hover:translate-x-1 transition-transform" />}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : (
+                    <>
+                      Save Record
+                      <ArrowRight className="ml-2 w-4 h-4 opacity-70 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
