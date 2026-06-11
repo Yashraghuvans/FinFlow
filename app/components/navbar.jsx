@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, Info, BarChart3, UserPlus, LogOut, User } from 'lucide-react'; 
+import { Menu, X, LayoutDashboard, History, TrendingUp, Settings, LogOut, Hexagon } from 'lucide-react'; 
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,148 +9,92 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const [auth, setAuth] = useState(null);
-  useEffect(() => {
-    try { setAuth(JSON.parse(localStorage.getItem('finflow_auth'))); } catch { setAuth(null); }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('finflow_auth');
-    setAuth(null);
-    window.location.href = '/signin';
-  };
 
   const navLinks = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "About", href: "/about", icon: Info },
-    // remove generic dashboard link
-    { name: auth?.role === 'OWNER' ? 'Owner Dashboard' : auth?.role === 'CONTRACTOR' ? 'Contractor Dashboard' : 'Sign In', href: auth?.role === 'OWNER' ? '/ownerDashboard' : auth?.role === 'CONTRACTOR' ? '/contractorDashboard' : '/signin', icon: auth?.role ? BarChart3 : UserPlus },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Ledger", href: "/ledger", icon: History },
+    { name: "Scenarios", href: "/scenarios", icon: TrendingUp },
   ];
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-[99] transition-all duration-300 ease-in-out
-        ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-slate-700/50' : 'bg-transparent'}`}
-      role="navigation"
-      aria-label="Main navigation"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500
+        ${isScrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5' : 'bg-transparent py-2'}`}
     >
-      <div className='container mx-auto px-4 md:px-8 lg:px-12 py-4 flex items-center justify-between'>
+      <div className='max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between'>
         {/* Logo */}
-        <Link href="/" className="flex items-center group focus-ring">
-          <div className="relative">
-            <img 
-              src="favicon.ico" 
-              alt="FinFlow Logo" 
-              className='h-10 w-10 md:h-12 md:w-12 rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg' 
-            />
-            <div className="absolute inset-0 rounded-xl bg-primary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <Link href="/" className="flex items-center group">
+          <div className="text-white group-hover:text-indigo-500 transition-colors duration-300">
+            <Hexagon className="w-8 h-8" strokeWidth={1.5} />
           </div>
-          <span className='ml-3 text-xl md:text-2xl font-bold text-white group-hover:text-primary-400 transition-colors duration-300'>
+          <span className='ml-3 text-xl font-bold tracking-tight text-white'>
             FinFlow
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className='hidden md:flex items-center space-x-1 lg:space-x-2'>
+        <div className='hidden md:flex items-center space-x-8'>
           {navLinks.map((link) => {
-            const Icon = link.icon;
             return (
-              <Link key={link.name} href={link.href} className="nav-link focus-ring">
-                <span className="flex items-center px-3 py-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200">
-                  <Icon className="w-4 h-4 mr-2" />
-                  {link.name}
-                </span>
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="nav-link"
+              >
+                {link.name}
               </Link>
             );
           })}
-          {auth && (
-            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-slate-700">
-              <div className="flex items-center text-slate-300 text-sm">
-                <User className="w-4 h-4 mr-2" />
-                {auth.role}
-              </div>
-              <button
-                onClick={handleLogout}
-                className="flex items-center px-3 py-2 rounded-lg hover:bg-red-600/20 text-red-400 hover:text-red-300 transition-colors duration-200 focus-ring"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
-              </button>
-            </div>
-          )}
+          <div className="h-4 w-px bg-white/10 mx-2"></div>
+          <Link href="/signin" className="text-sm font-medium text-white hover:text-indigo-400 transition-colors">
+            Sign In
+          </Link>
+          <Link href="/dashboard" className="px-5 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-all active:scale-95">
+            Get Started
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <div className='md:hidden'>
           <button 
-            onClick={toggleMenu} 
-            className='text-white focus-ring p-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200'
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className='text-white p-2'
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className='md:hidden fixed inset-0 bg-slate-900/98 backdrop-blur-lg flex flex-col items-center justify-center space-y-6 animate-fade-in z-50'>
-          <button 
-            onClick={toggleMenu} 
-            className='absolute top-6 right-6 text-white focus-ring p-2 rounded-lg hover:bg-slate-800/50 transition-colors duration-200'
-            aria-label="Close navigation menu"
-          >
-            <X size={28} />
-          </button>
-          
-          {navLinks.map((link, index) => {
+        <div className='md:hidden absolute top-full left-0 w-full bg-[#0a0a0a] border-b border-white/10 py-6 px-6 space-y-6 shadow-2xl'>
+          {navLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <Link key={link.name} href={link.href}>
-                <button
-                  className='flex items-center text-2xl font-semibold text-slate-200 hover:text-primary-400 transition-all duration-300 focus-ring p-4 rounded-lg hover:bg-slate-800/50 transform hover:scale-105'
-                  onClick={toggleMenu}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Icon className="w-6 h-6 mr-3" />
-                  {link.name}
-                </button>
+              <Link 
+                key={link.name} 
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center text-lg font-medium text-gray-300 hover:text-white"
+              >
+                <Icon className="w-5 h-5 mr-4 opacity-50" />
+                {link.name}
               </Link>
             );
           })}
-          {auth && (
-            <div className="mt-6 pt-6 border-t border-slate-700">
-              <div className="flex items-center justify-center text-slate-300 text-lg mb-4">
-                <User className="w-5 h-5 mr-2" />
-                {auth.role}
-              </div>
-              <button
-                onClick={() => { handleLogout(); toggleMenu(); }}
-                className='flex items-center text-xl font-semibold text-red-400 hover:text-red-300 transition-all duration-300 focus-ring p-4 rounded-lg hover:bg-red-600/20 transform hover:scale-105'
-              >
-                <LogOut className="w-5 h-5 mr-3" />
-                Logout
-              </button>
-            </div>
-          )}
+          <hr className="border-white/10" />
+          <Link 
+            href="/signin" 
+            onClick={() => setIsMenuOpen(false)}
+            className="block text-lg font-medium text-white"
+          >
+            Sign In
+          </Link>
         </div>
       )}
     </nav>

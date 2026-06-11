@@ -1,31 +1,22 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import NavBar from "./components/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata = {
   title: "FinFlow",
-  description: "Created by Yash Raghuvanshi",
+  description: "Construction-phase money tracker",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-        <ToastContainer position="top-right" theme="dark" autoClose={2500} />
+      <body>
+        <NavBar />
+        <main className="pt-20 min-h-screen">
+          {children}
+        </main>
+        <ToastContainer position="top-right" theme="light" autoClose={2500} />
       </body>
     </html>
   );

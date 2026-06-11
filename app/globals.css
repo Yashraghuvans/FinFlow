@@ -1,158 +1,103 @@
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --background: #0a0a0a;
+  --foreground: #fafaf9;
+  
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  
+  --surface: #171717;
+  --surface-border: #262626;
+  
+  --accent: #f97316; /* Orange accent for tension */
+  
+  --success: #22c55e;
+  --warning: #eab308;
+  --error: #ef4444;
 }
 
-html,
 body {
-  width: 100%;
-  height: 100%;
-  color: white;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Top-design: smooth scroll foundation */
+  scroll-behavior: smooth;
 }
 
-body { 
-  background-image: url(src/back.gif);
-  background-repeat: no-repeat;
-  background-size: cover; 
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* Responsive background adjustments */
-@media (max-width: 768px) { 
-  body {
-    background-size: cover; 
-    background-position: center;
+@layer base {
+  * {
+    @apply border-[var(--surface-border)];
+  }
+  
+  /* Top Design Typography scale contrast */
+  h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none;
+  }
+  h2 {
+    @apply text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight;
+  }
+  h3 {
+    @apply text-xl md:text-2xl font-bold tracking-tight;
+  }
+  p {
+    @apply text-base md:text-lg leading-relaxed text-gray-400;
   }
 }
 
-@media (max-width: 480px) { 
-  body {
-    background-size: cover; 
-    background-position: center; 
-  }
-}
-
-/* Selection styling */
-::selection {
-  color: rgb(232, 174, 65);
-  background-color: rgba(232, 174, 65, 0.2);
-}
-
-/* Custom component styles */
 @layer components {
-  /* Button variants */
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all duration-200 transform hover:scale-105 active:scale-95;
-  }
-  
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-4 py-2 bg-slate-700 text-slate-200 font-medium rounded-lg hover:bg-slate-600 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all duration-200;
-  }
-  
-  .btn-ghost {
-    @apply inline-flex items-center justify-center px-4 py-2 text-slate-300 font-medium rounded-lg hover:bg-slate-700 hover:text-white focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all duration-200;
-  }
-
-  /* Card component */
-  .card {
-    @apply bg-slate-800 rounded-xl border border-slate-700 shadow-lg hover:shadow-xl transition-all duration-200 p-6;
-  }
-
-  /* Form input */
-  .form-input {
-    @apply w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200;
-  }
-
-  /* Navigation link */
   .nav-link {
-    @apply text-base font-medium text-slate-300 hover:text-primary-400 transition-colors duration-300 relative;
+    @apply text-sm font-medium text-gray-400 hover:text-white transition-colors duration-300;
+  }
+  
+  .card {
+    @apply bg-[var(--surface)] rounded-2xl border border-[var(--surface-border)] p-6 transition-all duration-300;
   }
 
-  .nav-link::after {
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300;
-    content: '';
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-[var(--primary)] text-white font-medium rounded-xl hover:bg-indigo-500 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)];
   }
 
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
-  /* Status indicators */
-  .status-success {
-    @apply bg-success-500/10 border border-success-500/20 text-success-400;
-  }
-
-  .status-warning {
-    @apply bg-warning-500/10 border border-warning-500/20 text-warning-400;
-  }
-
-  .status-error {
-    @apply bg-error-500/10 border border-error-500/20 text-error-400;
-  }
-
-  /* Loading states */
-  .skeleton {
-    @apply animate-pulse bg-slate-700 rounded;
-  }
-
-  /* Focus styles for accessibility */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-900;
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-transparent border border-[var(--surface-border)] text-white font-medium rounded-xl hover:bg-[var(--surface-border)] transition-all duration-300 active:scale-95;
   }
 }
 
-/* Animation classes */
-@layer utilities {
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
     opacity: 0;
+    transform: translateY(20px);
   }
-
-  .animation-delay-100 { animation-delay: 0.1s; }
-  .animation-delay-200 { animation-delay: 0.2s; }
-  .animation-delay-300 { animation-delay: 0.3s; }
-  .animation-delay-500 { animation-delay: 0.5s; }
-  .animation-delay-700 { animation-delay: 0.7s; }
-  .animation-delay-1000 { animation-delay: 1s; }
-
-  /* Blob animation */
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
-
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }

@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String     @id @default(cuid())
+  email       String     @unique
+  name        String?
+  properties  Property[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Property {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectName    String
+  builderName    String
+  location       String?
+  agreementValue Float
+  possessionDate DateTime?
+  loans          Loan[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Loan {
+  id               String           @id @default(cuid())
+  propertyId       String
+  property         Property         @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  lender           String
+  sanctionedAmount Float
+  interestRate     Float
+  tenureMonths     Int
+  sanctionDate     DateTime
+  type             String           @default("floating") // fixed, floating, hybrid
+  schedules        PaymentSchedule[]
+  scenarios        Scenario[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model PaymentSchedule {
+  id         String      @id @default(cuid())
+  loanId     String
+  loan       Loan        @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  name       String      @default("Standard Plan")
+  milestones Milestone[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Milestone {
+  id                String           @id @default(cuid())
+  paymentScheduleId String
+  paymentSchedule   PaymentSchedule  @relation(fields: [paymentScheduleId], references: [id], onDelete: Cascade)
+  name              String
+  percentage        Float
+  expectedDate      DateTime?
+  completedDate     DateTime?
+  status            String           @default("pending") // pending, completed
+  invoices          Invoice[]
+  transactions      Transaction[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model Invoice {
+  id           String        @id @default(cuid())
+  milestoneId  String
+  milestone    Milestone     @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+  number       String?
+  amount       Float
+  issueDate    DateTime
+  dueDate      DateTime?
+  status       String        @default("unpaid") // unpaid, partial, paid
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Transaction {
+  id          String     @id @default(cuid())
+  type        String     // down_payment, builder_invoice, bank_disbursement, owner_direct, pre_emi, full_emi
+  amount      Float
+  date        DateTime
+  notes       String?
+  
+  milestoneId String?
+  milestone   Milestone? @relation(fields: [milestoneId], references: [id])
+  
+  invoiceId   String?
+  invoice     Invoice?   @relation(fields: [invoiceId], references: [id])
+  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Scenario {
+  id         String   @id @default(cuid())
+  loanId     String
+  loan       Loan     @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  name       String
+  type       String   // lump_sum, pay_yourself, tenure_change, rate_change
+  inputs     String   // JSON string of inputs
+  outputs    String   // JSON string of computed outputs
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
