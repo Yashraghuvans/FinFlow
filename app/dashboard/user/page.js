@@ -248,7 +248,7 @@ export default function UserDashboard() {
            </div>
            <div className="max-w-md space-y-4">
               <h3 className="text-3xl font-bold text-white">Scenario Lab</h3>
-              <p className="text-gray-500 leading-relaxed">Experiment with prepayments and see your "Interest Saved" metric grow in real-time.</p>
+              <p className="text-gray-500 leading-relaxed">Experiment with prepayments and see your &quot;Interest Saved&quot; metric grow in real-time.</p>
            </div>
            <Link href="/scenarios" className="btn-primary px-12 py-4 text-lg">Enter Lab &rarr;</Link>
         </div>

@@ -2,7 +2,7 @@
 
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Loader2, Users, FileText, CheckCircle, Plus, Search, ExternalLink, ArrowUpRight, Hexagon, BarChart3, AlertCircle } from 'lucide-react';
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -29,13 +29,8 @@ export default function ContractorDashboard() {
     }
   }, [user, role]);
 
-  useEffect(() => {
-    if (activeTab === 'clients' && user) {
-      fetchClients();
-    }
-  }, [activeTab, user]);
-
-  const fetchClients = async () => {
+  const fetchClients = useCallback(async () => {
+    if (!user) return;
     setFetchingClients(true);
     try {
       // SECURE: Filter users by assignedContractorId
@@ -54,7 +49,13 @@ export default function ContractorDashboard() {
     } finally {
       setFetchingClients(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (activeTab === 'clients' && user) {
+      fetchClients();
+    }
+  }, [activeTab, user, fetchClients]);
 
   if (authLoading || fetching) {
     return (
@@ -228,7 +229,7 @@ export default function ContractorDashboard() {
            </div>
            <div className="max-w-md space-y-4">
               <h3 className="text-3xl font-bold text-white">Invoice Engine</h3>
-              <p className="text-gray-500 leading-relaxed">Generate GST-compliant invoices and send them directly to your clients' ledgers.</p>
+              <p className="text-gray-500 leading-relaxed">Generate GST-compliant invoices and send them directly to your clients&apos; ledgers.</p>
            </div>
            <button className="btn-primary bg-blue-600 hover:bg-blue-700 border-none px-12 py-4 text-lg">System Offline &rarr;</button>
         </div>

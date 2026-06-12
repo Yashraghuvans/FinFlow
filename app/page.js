@@ -82,7 +82,7 @@ export default function LandingPage() {
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold text-white">Scenario Forecasting</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">
-                    Model lump-sum prepayments and visualize your "Interest Saved" metric across the loan lifecycle.
+                    Model lump-sum prepayments and visualize your &quot;Interest Saved&quot; metric across the loan lifecycle.
                   </p>
                 </div>
               </div>
