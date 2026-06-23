@@ -1,7 +1,48 @@
-import { getScenariosData } from '../lib/actions';
+'use client';
 
-export default async function ScenariosPage() {
-  const { scenarios, loanId } = await getScenariosData();
+import { useEffect, useState } from 'react';
+import { firebaseGetScenarios } from '../lib/firebase-actions';
+import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
+
+export default function ScenariosPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+  const [scenarios, setScenarios] = useState([]);
+  const [loanId, setLoanId] = useState(null);
+  const [fetching, setFetching] = useState(true);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/signin');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    async function loadScenarios() {
+      if (user) {
+        try {
+          const data = await firebaseGetScenarios(user.uid);
+          setScenarios(data.scenarios);
+          setLoanId(data.loanId);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setFetching(false);
+        }
+      }
+    }
+    loadScenarios();
+  }, [user]);
+
+  if (authLoading || fetching) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
@@ -43,7 +84,7 @@ export default async function ScenariosPage() {
           <div className="w-16 h-16 bg-white/5 border border-white/10 text-gray-400 rounded-full flex items-center justify-center mb-4">
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </div>
-          <p className="text-gray-300 font-medium mb-4 text-lg">You haven't created any scenarios yet.</p>
+          <p className="text-gray-300 font-medium mb-4 text-lg">You haven&apos;t created any scenarios yet.</p>
           {loanId ? (
             <button className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">
               Create your first prepayment scenario &rarr;

@@ -1,30 +1,49 @@
 'use client';
 
-import { useState } from 'react';
-import { setupPropertyAndLoan } from '../lib/actions';
+import { useState, useEffect } from 'react';
+import { firebaseSetupPropertyAndLoan } from '../lib/firebase-actions';
 import { useRouter } from 'next/navigation';
-import { Hexagon, ArrowRight } from 'lucide-react';
+import { Hexagon, ArrowRight, Loader2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/signin');
+    }
+  }, [user, authLoading, router]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    if (!user) return;
     
+    setLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     
     try {
-      await setupPropertyAndLoan(data);
-      router.push('/dashboard');
+      await firebaseSetupPropertyAndLoan(user.uid, data);
+      toast.success("Project initialized!");
+      router.push('/dashboard/user');
     } catch (err) {
       console.error(err);
-      alert('Failed to setup property.');
+      toast.error('Failed to setup property.');
     } finally {
       setLoading(false);
     }
+  }
+
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      </div>
+    );
   }
 
   return (

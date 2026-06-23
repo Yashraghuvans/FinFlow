@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if the user is a contractor
+    function isContractor() {
+      return get(/databases/$(database)/documents/contractors/$(request.auth.uid)) != null;
+    }
+
+    // Profiles (Users)
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || isContractor());
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Profiles (Contractors)
+    match /contractors/{contractorId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == contractorId;
+    }
+
+    // Properties
+    match /properties/{propertyId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isContractor());
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+    // Loans
+    match /loans/{loanId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isContractor());
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+    // Transactions
+    match /transactions/{transactionId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isContractor());
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+    // Scenarios
+    match /scenarios/{scenarioId} {
+      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}

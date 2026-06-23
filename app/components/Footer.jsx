@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart, Github, Mail, Linkedin } from 'lucide-react';
+import Image from 'next/image';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -48,10 +49,12 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-6">
-              <img 
-                src="favicon.ico" 
+              <Image 
+                src="/favicon.ico" 
                 alt="FinFlow Logo" 
-                className="h-10 w-10 rounded-xl mr-3" 
+                width={40}
+                height={40}
+                className="rounded-xl mr-3" 
               />
               <span className="text-2xl font-bold text-white">FinFlow</span>
             </div>
