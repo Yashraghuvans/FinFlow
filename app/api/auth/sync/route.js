@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
-import { adminAuth } from '@/app/lib/firebase-admin';
+import { getAdminAuth } from '@/app/lib/firebase-admin';
 import { prisma } from '@/app/lib/prisma';
 
 export async function POST(req) {
   try {
+    const adminAuth = getAdminAuth();
+    if (!adminAuth) {
+      return NextResponse.json({ error: 'Firebase Admin is not configured on the server' }, { status: 500 });
+    }
+
     const authHeader = req.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Missing or invalid token' }, { status: 401 });
