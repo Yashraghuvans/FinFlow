@@ -23,7 +23,7 @@
 
 It simplifies the complex journey of buying a property by allowing you to track your loan disbursements, schedule payments to builders, upload invoices, and calculate interest accruals. Additionally, it features intelligent "what-if" scenarios to help you optimize payments and save on interest.
 
-**Live Demo:** [fin-flow-nine.vercel.app](https://fin-flow-nine.vercel.app/)
+**Live Demo:** [FinFlow](https://fin-flow-chi-five.vercel.app/)
 
 ---
 
