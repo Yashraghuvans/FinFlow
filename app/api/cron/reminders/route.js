@@ -2,13 +2,18 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { prisma } from '@/app/lib/prisma';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function GET(req) {
   // Check authorization header for Vercel Cron
   if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY is not set');
+    return NextResponse.json({ error: 'Resend API key missing' }, { status: 500 });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     // In a real scenario, you'd fetch users who haven't updated in 7 days
