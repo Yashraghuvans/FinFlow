@@ -45,18 +45,17 @@ export default function LogTransactionModal() {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-[#0a0a0a]/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 animate-fade-in-up" style={{ animationDuration: '0.3s' }}>
-          <div className="bg-[var(--surface)] border border-white/10 rounded-3xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden">
-            
-            <button onClick={() => setIsOpen(false)} className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
-              <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-black/70 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="log-tx-title">
+          <div className="card relative w-full max-w-md p-6 sm:p-8">
+            <button type="button" onClick={() => setIsOpen(false)} className="absolute right-5 top-5 rounded-lg p-1 text-zinc-400 transition-colors hover:text-white" aria-label="Close">
+              <X className="h-5 w-5" />
             </button>
 
-            <h2 className="text-2xl font-bold text-white mb-6">Log Transaction</h2>
+            <h2 id="log-tx-title" className="mb-6 text-xl font-semibold text-white">Log transaction</h2>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Transaction Type</label>
-                <select name="type" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all [color-scheme:dark]">
+                <select name="type" required className="input-field [color-scheme:dark]">
                   <option value="bank_disbursement">Bank Disbursement</option>
                   <option value="owner_direct">Owner Direct Payment</option>
                   <option value="pre_emi">Pre-EMI Interest</option>
@@ -65,15 +64,15 @@ export default function LogTransactionModal() {
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Amount (₹)</label>
-                <input name="amount" type="number" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono placeholder:text-gray-700" placeholder="50000" />
+                <input name="amount" type="number" required className="input-field font-mono tabular-nums" placeholder="50000" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Date</label>
-                <input name="date" type="date" required className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all [color-scheme:dark]" defaultValue={new Date().toISOString().split('T')[0]} />
+                <input name="date" type="date" required className="input-field [color-scheme:dark]" defaultValue={new Date().toISOString().split('T')[0]} />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Notes (Optional)</label>
-                <textarea name="notes" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-gray-700" rows="2" placeholder="Reference number or description..."></textarea>
+                <textarea name="notes" className="input-field min-h-[80px] resize-y" rows="2" placeholder="Reference number or description..."></textarea>
               </div>
               <div className="pt-4">
                 <button 

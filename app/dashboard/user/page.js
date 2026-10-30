@@ -3,7 +3,7 @@
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Loader2, IndianRupee, Landmark, TrendingDown, Wallet, ArrowRight, Hexagon, BarChart3, Clock, AlertCircle } from 'lucide-react';
+import { Loader2, IndianRupee, Landmark, TrendingDown, Wallet, ArrowRight, BarChart3, Clock, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { firebaseGetDashboardData } from '../../lib/firebase-actions';
 
@@ -44,15 +44,15 @@ export default function UserDashboard() {
 
   if (authLoading || fetching || !data) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] p-8 lg:p-12">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="h-16 w-1/3 bg-white/5 rounded-2xl animate-pulse" />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="page-container py-10 sm:py-14">
+        <div className="space-y-8">
+          <div className="h-12 w-full max-w-md rounded-xl bg-white/5 animate-pulse" />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="h-40 bg-white/5 rounded-3xl animate-pulse" />
+              <div key={i} className="h-32 rounded-xl bg-white/5 animate-pulse" />
             ))}
           </div>
-          <div className="h-96 bg-white/5 rounded-[2.5rem] animate-pulse" />
+          <div className="h-72 rounded-xl bg-white/5 animate-pulse" />
         </div>
       </div>
     );
@@ -68,44 +68,42 @@ export default function UserDashboard() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24 space-y-16">
-      
-      {/* Header with Dramatic Scale */}
-      <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-white/5 pb-12 animate-fade-in-up">
-        <div className="space-y-4">
-          <div className="flex items-center space-x-3 text-indigo-400 font-mono text-sm tracking-[0.2em] uppercase">
-            <Hexagon className="w-4 h-4" />
-            <span>Project Insight</span>
-          </div>
-          <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-white">
-            {property.projectName.split(' ').map((word, i) => (
-               <span key={i} className={i === 0 ? "text-white" : "text-white/40"}>{word} </span>
-            ))}
-          </h1>
-          <p className="text-xl text-gray-500 max-w-xl leading-relaxed">
-            Managing disbursements for your asset with <span className="text-white">{property.builderName}</span>.
+    <div className="page-container space-y-10 py-10 sm:py-14 lg:space-y-12">
+      <header className="flex flex-col gap-6 border-b border-[color:var(--surface-border)] pb-8 animate-fade-in-up lg:flex-row lg:items-end lg:justify-between">
+        <div className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-wider text-indigo-400/90">
+            Project overview
+          </p>
+          <h1 className="text-white">{property.projectName}</h1>
+          <p className="max-w-xl text-[var(--muted)]">
+            Builder: <span className="text-zinc-200">{property.builderName}</span>
           </p>
         </div>
-        
-        <div className="flex flex-col items-start lg:items-end space-y-4">
-           <div className="flex items-center px-5 py-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-300 text-sm font-semibold tracking-wide backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-indigo-500 mr-3 animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.8)]"></span>
-            Active Construction Phase
-          </div>
-          <p className="text-gray-600 text-sm font-mono">Last sync: {new Date().toLocaleTimeString()}</p>
+
+        <div className="flex flex-col items-start gap-2 lg:items-end">
+          <span className="badge border-indigo-500/30 bg-indigo-500/10 text-indigo-200">
+            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-indigo-400" aria-hidden />
+            Active construction
+          </span>
+          <p className="text-xs text-zinc-500">
+            Updated {new Date().toLocaleTimeString()}
+          </p>
         </div>
       </header>
 
-      {/* Navigation Pills */}
-      <nav className="flex items-center space-x-2 p-1.5 bg-white/5 border border-white/10 rounded-2xl w-fit animate-fade-in-up delay-100">
+      <nav
+        className="flex w-full max-w-full gap-1 overflow-x-auto rounded-xl border border-[color:var(--surface-border)] bg-black/20 p-1 sm:w-fit animate-fade-in-up delay-100"
+        aria-label="Dashboard sections"
+      >
         {['overview', 'ledger', 'scenarios'].map((tab) => (
           <button
             key={tab}
+            type="button"
             onClick={() => setActiveTab(tab)}
-            className={`px-8 py-3 text-sm font-bold rounded-xl transition-all duration-300 capitalize tracking-wide ${
-              activeTab === tab 
-                ? 'bg-white text-black shadow-xl scale-[1.02]' 
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+            className={`shrink-0 rounded-lg px-5 py-2.5 text-sm font-medium capitalize transition-colors ${
+              activeTab === tab
+                ? 'bg-white text-zinc-900'
+                : 'text-zinc-400 hover:bg-white/5 hover:text-white'
             }`}
           >
             {tab}
@@ -120,17 +118,14 @@ export default function UserDashboard() {
             {cards.map((card, i) => {
               const Icon = card.icon;
               return (
-                <div key={card.label} className="group relative overflow-hidden card p-8 hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 border-white/5 hover:border-white/20">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 border transition-all duration-500 group-hover:scale-110 ${card.bg}`}>
-                    <Icon className={`w-7 h-7 ${card.color}`} />
+                <div key={card.label} className="card-interactive group p-6 sm:p-7">
+                  <div className={`mb-5 flex h-11 w-11 items-center justify-center rounded-lg border ${card.bg}`}>
+                    <Icon className={`h-5 w-5 ${card.color}`} aria-hidden />
                   </div>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">{card.label}</p>
-                  <p className="text-4xl font-bold text-white tracking-tighter">
-                    ₹{(card.value / 100000).toFixed(2)}<span className="text-xl text-gray-600 ml-1">L</span>
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{card.label}</p>
+                  <p className="stat-value mt-1">
+                    ₹{(card.value / 100000).toFixed(2)}<span className="ml-1 text-lg text-zinc-500">L</span>
                   </p>
-                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-10 transition-opacity">
-                     <Icon className="w-16 h-16" />
-                  </div>
                 </div>
               );
             })}

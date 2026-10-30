@@ -37,23 +37,23 @@ export default function LedgerPage() {
 
   if (authLoading || fetching) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" aria-label="Loading" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
-      <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-8">
+    <div className="page-container animate-fade-in-up py-10 sm:py-14">
+      <header className="mb-8 flex flex-col gap-4 border-b border-[color:var(--surface-border)] pb-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">Transaction Ledger</h1>
-          <p className="text-lg text-gray-400">Every rupee tracked, from down payment to pre-EMI.</p>
+          <h1 className="text-white">Transaction ledger</h1>
+          <p className="mt-2 text-[var(--muted)]">Every rupee tracked, from down payment to pre-EMI.</p>
         </div>
         <LogTransactionModal />
       </header>
 
-      <div className="bg-[var(--surface)] rounded-2xl border border-white/10 overflow-hidden shadow-xl">
+      <div className="card overflow-hidden p-0">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-white/10">
             <thead className="bg-black/20">

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Hexagon, ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -26,18 +26,11 @@ export default function SignInPage() {
     try {
       if (isLogin) {
         await login(email, password);
-        // AuthContext will handle state, we just redirect
-        // Ideally we redirect based on role. We can fetch role or wait for context.
-        // For now, let's just push to /dashboard (which will redirect) or check context in a wrapper.
-        // Actually, let's let a ProtectedRoute or the Dashboard index handle the redirect, 
-        // or push directly based on role if we fetch it here.
-        // Let's redirect to a generic /dashboard which routes to correct one.
         router.push('/dashboard');
       } else {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        
-        // Save role in Firestore
+
         const collectionName = role === 'contractor' ? 'contractors' : 'users';
         await setDoc(doc(db, collectionName, user.uid), {
           email: user.email,
@@ -57,96 +50,114 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6 relative overflow-hidden">
-      
-      {/* Subtle glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
+    <div className="page-shell flex min-h-[calc(100vh-var(--nav-height))] items-center justify-center px-4 py-12">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_rgba(99,102,241,0.12)_0%,_transparent_55%)]" aria-hidden />
 
-      <div className="w-full max-w-md bg-[var(--surface)] border border-white/10 rounded-3xl p-8 lg:p-10 shadow-2xl relative z-10 animate-fade-in-up">
-        
-        <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-white">
-            <Hexagon className="w-8 h-8" strokeWidth={1.5} />
+      <div className="w-full max-w-md animate-fade-in-up">
+        <div className="card p-8 sm:p-10">
+          <div className="mb-8 text-center">
+            <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/15 text-lg font-semibold text-indigo-300">
+              F
+            </span>
+            <h1 className="text-2xl font-semibold text-white">
+              {isLogin ? 'Welcome back' : 'Create your account'}
+            </h1>
+            <p className="mt-2 text-sm text-[var(--muted)]">
+              {isLogin
+                ? 'Sign in to open your dashboard.'
+                : 'Choose your role and start tracking your project.'}
+            </p>
           </div>
-        </div>
-        
-        <h2 className="text-2xl font-bold text-white text-center mb-2">
-          {isLogin ? "Welcome Back" : "Create Account"}
-        </h2>
-        <p className="text-gray-400 text-center mb-8 text-sm">
-          {isLogin ? "Sign in to access your dashboard" : "Sign up to start tracking projects"}
-        </p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {!isLogin && (
-            <div>
-              <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">I am a</label>
-              <div className="flex space-x-4">
-                <button
-                  type="button"
-                  onClick={() => setRole('user')}
-                  className={`flex-1 py-2 px-4 rounded-xl border transition-all text-sm font-medium ${role === 'user' ? 'bg-indigo-500/20 border-indigo-500/50 text-indigo-300' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
-                >
-                  Property Owner
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('contractor')}
-                  className={`flex-1 py-2 px-4 rounded-xl border transition-all text-sm font-medium ${role === 'contractor' ? 'bg-orange-500/20 border-orange-500/50 text-orange-300' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
-                >
-                  Contractor
-                </button>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {!isLogin && (
+              <div>
+                <span className="label-field">I am a</span>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRole('user')}
+                    className={`rounded-[var(--radius-md)] border px-3 py-2.5 text-sm font-medium transition-colors ${
+                      role === 'user'
+                        ? 'border-indigo-500/50 bg-indigo-500/15 text-indigo-200'
+                        : 'border-[color:var(--surface-border)] bg-black/20 text-zinc-400 hover:bg-white/5'
+                    }`}
+                  >
+                    Property owner
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole('contractor')}
+                    className={`rounded-[var(--radius-md)] border px-3 py-2.5 text-sm font-medium transition-colors ${
+                      role === 'contractor'
+                        ? 'border-teal-500/50 bg-teal-500/15 text-teal-200'
+                        : 'border-[color:var(--surface-border)] bg-black/20 text-zinc-400 hover:bg-white/5'
+                    }`}
+                  >
+                    Contractor
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-
-          <div>
-            <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider">Email Address</label>
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-gray-600" 
-              placeholder="you@example.com" 
-            />
-          </div>
-          
-          <div>
-            <div className="flex justify-between items-center mb-2">
-              <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider">Password</label>
-              {isLogin && <Link href="#" className="text-xs text-indigo-400 hover:text-indigo-300">Forgot?</Link>}
-            </div>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required 
-              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-gray-600" 
-              placeholder="••••••••" 
-            />
-          </div>
-
-          <button type="submit" disabled={loading} className="w-full btn-primary mt-4 flex justify-center items-center group disabled:opacity-70">
-            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
-              <>
-                {isLogin ? "Sign In" : "Sign Up"} 
-                <ArrowRight className="ml-2 w-4 h-4 opacity-70 group-hover:translate-x-1 transition-transform" />
-              </>
             )}
-          </button>
-        </form>
 
-        <p className="mt-8 text-center text-sm text-gray-500">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
-          <button 
-            onClick={() => setIsLogin(!isLogin)} 
-            className="ml-2 text-white hover:underline font-medium"
-          >
-            {isLogin ? "Sign Up" : "Sign In"}
-          </button>
-        </p>
+            <div>
+              <label htmlFor="email" className="label-field">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-field"
+                placeholder="you@example.com"
+                autoComplete="email"
+              />
+            </div>
 
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <label htmlFor="password" className="label-field mb-0">Password</label>
+                {isLogin && (
+                  <Link href="#" className="text-xs text-indigo-400 hover:text-indigo-300">
+                    Forgot?
+                  </Link>
+                )}
+              </div>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input-field"
+                placeholder="••••••••"
+                autoComplete={isLogin ? 'current-password' : 'new-password'}
+              />
+            </div>
+
+            <button type="submit" disabled={loading} className="btn-primary mt-2 w-full py-3">
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />
+              ) : (
+                <>
+                  {isLogin ? 'Sign in' : 'Sign up'}
+                  <ArrowRight className="h-4 w-4 opacity-80" aria-hidden />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="mt-8 text-center text-sm text-zinc-500">
+            {isLogin ? "Don't have an account?" : 'Already have an account?'}
+            <button
+              type="button"
+              onClick={() => setIsLogin(!isLogin)}
+              className="ml-2 font-medium text-white hover:underline"
+            >
+              {isLogin ? 'Sign up' : 'Sign in'}
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

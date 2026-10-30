@@ -59,35 +59,30 @@ export default function ContractorDashboard() {
 
   if (authLoading || fetching) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] p-8 lg:p-12">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="h-16 w-1/3 bg-white/5 rounded-2xl animate-pulse" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="page-container py-10 sm:py-14">
+        <div className="space-y-8">
+          <div className="h-12 max-w-md rounded-xl bg-white/5 animate-pulse" />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-40 bg-white/5 rounded-3xl animate-pulse" />
+              <div key={i} className="h-32 rounded-xl bg-white/5 animate-pulse" />
             ))}
           </div>
-          <div className="h-96 bg-white/5 rounded-[2.5rem] animate-pulse" />
+          <div className="h-72 rounded-xl bg-white/5 animate-pulse" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24 space-y-16">
-      
-      {/* Header with Dramatic Scale */}
-      <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-white/5 pb-12 animate-fade-in-up">
-        <div className="space-y-4">
-          <div className="flex items-center space-x-3 text-orange-400 font-mono text-sm tracking-[0.2em] uppercase">
-             <div className="w-4 h-4 bg-orange-500/20 rounded rotate-45 border border-orange-500/30" />
-            <span>Contractor Control</span>
-          </div>
-          <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-white">
-            Partner <span className="text-white/40 font-light">Portal</span>
-          </h1>
-          <p className="text-xl text-gray-500 max-w-xl leading-relaxed">
-            Overseeing <span className="text-white">{clients.length} projects</span> across your organization.
+    <div className="page-container space-y-10 py-10 sm:py-14 lg:space-y-12">
+      <header className="flex flex-col gap-6 border-b border-[color:var(--surface-border)] pb-8 animate-fade-in-up lg:flex-row lg:items-end lg:justify-between">
+        <div className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-wider text-teal-400/90">
+            Contractor portal
+          </p>
+          <h1 className="text-white">Partner dashboard</h1>
+          <p className="max-w-xl text-[var(--muted)]">
+            Managing <span className="text-zinc-200">{clients.length} active projects</span>.
           </p>
         </div>
         

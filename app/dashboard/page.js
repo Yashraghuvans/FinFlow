@@ -23,8 +23,8 @@ export default function DashboardRouter() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" aria-label="Loading" />
       </div>
     );
   }

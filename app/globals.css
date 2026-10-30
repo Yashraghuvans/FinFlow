@@ -3,90 +3,169 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafaf9;
-  
-  --primary: #4f46e5;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --muted: #a1a1aa;
+  --muted-foreground: #71717a;
+
+  --primary: #6366f1;
   --primary-foreground: #ffffff;
-  
-  --surface: #171717;
-  --surface-border: #262626;
-  
-  --accent: #f97316; /* Orange accent for tension */
-  
+  --primary-muted: rgba(99, 102, 241, 0.12);
+
+  --surface: #18181b;
+  --surface-elevated: #1c1c1f;
+  --surface-border: rgba(255, 255, 255, 0.08);
+
+  --accent: #14b8a6;
   --success: #22c55e;
   --warning: #eab308;
   --error: #ef4444;
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Top-design: smooth scroll foundation */
-  scroll-behavior: smooth;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --nav-height: 4rem;
 }
 
 @layer base {
   * {
-    @apply border-[var(--surface-border)];
+    @apply border-[color:var(--surface-border)];
   }
-  
-  /* Top Design Typography scale contrast */
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   h1 {
-    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1];
   }
+
   h2 {
-    @apply text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight leading-tight;
   }
+
   h3 {
-    @apply text-xl md:text-2xl font-bold tracking-tight;
+    @apply text-lg sm:text-xl font-medium tracking-tight;
   }
+
   p {
-    @apply text-base md:text-lg leading-relaxed text-gray-400;
+    @apply text-base leading-relaxed text-[var(--muted)];
   }
 }
 
 @layer components {
-  .nav-link {
-    @apply text-sm font-medium text-gray-400 hover:text-white transition-colors duration-300;
+  .page-shell {
+    @apply min-h-screen bg-[var(--background)] text-[var(--foreground)];
   }
-  
+
+  .page-container {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  .nav-link {
+    @apply text-sm font-medium text-[var(--muted)] transition-colors duration-200 hover:text-white;
+  }
+
   .card {
-    @apply bg-[var(--surface)] rounded-2xl border border-[var(--surface-border)] p-6 transition-all duration-300;
+    @apply rounded-[var(--radius-xl)] border border-[color:var(--surface-border)] bg-[var(--surface)] p-6 transition-[transform,box-shadow,border-color] duration-300 ease-out;
+  }
+
+  .card-interactive {
+    @apply card hover:border-white/15 hover:bg-[var(--surface-elevated)];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-[var(--radius-md)] px-5 py-2.5 text-sm font-medium transition-[transform,background-color,box-shadow] duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-[var(--primary)] text-white font-medium rounded-xl hover:bg-indigo-500 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)];
+    @apply btn bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm hover:bg-indigo-500;
   }
 
-  .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-transparent border border-[var(--surface-border)] text-white font-medium rounded-xl hover:bg-[var(--surface-border)] transition-all duration-300 active:scale-95;
+  .btn-secondary {
+    @apply btn border border-[color:var(--surface-border)] bg-transparent text-white hover:bg-white/5;
+  }
+
+  .btn-ghost {
+    @apply btn text-[var(--muted)] hover:bg-white/5 hover:text-white;
+  }
+
+  .input-field {
+    @apply w-full rounded-[var(--radius-md)] border border-[color:var(--surface-border)] bg-black/30 px-4 py-3 text-sm text-white placeholder:text-zinc-600 transition-[border-color,box-shadow] duration-200 focus:border-indigo-500/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/20;
+  }
+
+  .label-field {
+    @apply mb-2 block text-xs font-medium uppercase tracking-wide text-[var(--muted-foreground)];
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full border border-[color:var(--surface-border)] bg-white/[0.04] px-3 py-1 text-xs font-medium text-[var(--muted)];
+  }
+
+  .stat-value {
+    @apply text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight text-white;
   }
 }
 
-/* Custom Scrollbar for Dark Theme */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
+  background: #3f3f46;
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #52525b;
 }
 
-/* Animations */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -95,9 +174,47 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-in-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.25s ease-out forwards;
+}
+
+.delay-75 { animation-delay: 75ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-225 { animation-delay: 225ms; }
 .delay-300 { animation-delay: 300ms; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-slide-down {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

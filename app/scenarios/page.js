@@ -38,21 +38,21 @@ export default function ScenariosPage() {
 
   if (authLoading || fetching) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" aria-label="Loading" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
-      <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-8">
+    <div className="page-container animate-fade-in-up py-10 sm:py-14">
+      <header className="mb-8 flex flex-col gap-4 border-b border-[color:var(--surface-border)] pb-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">Forecasting Scenarios</h1>
-          <p className="text-lg text-gray-400">Model prepayments, rate changes, and payoff strategies.</p>
+          <h1 className="text-white">Forecasting scenarios</h1>
+          <p className="mt-2 text-[var(--muted)]">Model prepayments, rate changes, and payoff strategies.</p>
         </div>
-        <button className="btn-primary py-2 px-5 text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled={!loanId}>
-          + New Scenario
+        <button type="button" className="btn-primary shrink-0 px-5 py-2.5 text-sm disabled:cursor-not-allowed disabled:opacity-50" disabled={!loanId}>
+          + New scenario
         </button>
       </header>
 

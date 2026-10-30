@@ -1,129 +1,117 @@
-import Link from 'next/link';
-import { ArrowRight, Activity, Shield, Zap, Hexagon, ChevronRight, Star } from 'lucide-react';
+import Link from "next/link";
+import {
+  ArrowRight,
+  Activity,
+  Shield,
+  LineChart,
+  Users,
+} from "lucide-react";
+import Reveal from "./components/Reveal";
+import Footer from "./components/Footer";
+import LandingHero from "./components/LandingHero";
+
+const features = [
+  {
+    icon: Activity,
+    title: "Live loan math",
+    description:
+      "Track outstanding principal and pre-EMI as the bank releases tranches—always current, never spreadsheet drift.",
+  },
+  {
+    icon: LineChart,
+    title: "Scenario planning",
+    description:
+      "Model prepayments and rate shifts. See interest saved before you commit extra capital.",
+  },
+  {
+    icon: Shield,
+    title: "Audit-ready ledger",
+    description:
+      "Structured transaction history for tax season and annual reviews—clear types, dates, and notes.",
+  },
+  {
+    icon: Users,
+    title: "Owner & contractor views",
+    description:
+      "Separate dashboards so builders manage milestones while owners keep the full financial picture.",
+  },
+];
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden selection:bg-indigo-500/30">
-      
-      {/* Dynamic Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/10 blur-[180px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-600/5 blur-[150px] rounded-full" />
+    <div className="page-shell overflow-x-hidden">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        aria-hidden
+      >
+        <div className="absolute left-1/2 top-0 h-[480px] w-[min(100%,720px)] -translate-x-1/2 rounded-full bg-indigo-600/[0.07] blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-[320px] w-[320px] rounded-full bg-teal-500/[0.05] blur-3xl" />
       </div>
 
-      {/* Hero Section - Awwwards Style */}
-      <section className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-32 lg:pt-56 lg:pb-48 flex flex-col items-center text-center z-10">
-        <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/5 bg-white/5 backdrop-blur-2xl mb-12 animate-fade-in-up">
-          <Hexagon className="w-4 h-4 text-indigo-500 mr-3 fill-indigo-500/20" />
-          <span className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase">Version 2.0 Engineering</span>
-        </div>
-        
-        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.9] mb-12 animate-fade-in-up delay-100">
-          The <span className="text-white/20">Asset</span> <br/>
-          <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">
-            Command Center
-          </span>
-        </h1>
-        
-        <p className="max-w-2xl mx-auto text-lg md:text-2xl text-gray-500 font-medium leading-relaxed mb-16 animate-fade-in-up delay-200">
-          Orchestrating construction loans, builder milestones, and pre-EMI interest 
-          with <span className="text-white">mathematical precision</span>.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-6 animate-fade-in-up delay-300">
-          <Link href="/signin" className="btn-primary px-12 py-5 text-lg rounded-2xl bg-white text-black hover:bg-gray-200 border-none shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all active:scale-95">
-            Initialize Project <ArrowRight className="ml-3 w-5 h-5" />
-          </Link>
-          <Link href="/signin" className="btn-outline px-12 py-5 text-lg rounded-2xl border-white/10 hover:bg-white/5 transition-all">
-            Contractor Portal
-          </Link>
-        </div>
+      <LandingHero />
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-20">
-           <div className="w-1 h-12 bg-gradient-to-b from-white to-transparent rounded-full" />
-        </div>
-      </section>
+      <section className="border-t border-[color:var(--surface-border)] section-pad">
+        <div className="page-container">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <Reveal className="lg:col-span-4">
+              <p className="text-sm font-medium uppercase tracking-wider text-indigo-400/90">
+                Platform
+              </p>
+              <h2 className="mt-3">Built for clarity under pressure</h2>
+              <p className="mt-4 max-w-md">
+                Construction loans move fast. FinFlow keeps owners, lenders, and
+                builders aligned with numbers you can trust at every milestone.
+              </p>
+            </Reveal>
 
-      {/* Feature Architecture */}
-      <section className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32 border-t border-white/5 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-           
-           <div className="lg:col-span-4 space-y-6">
-              <h2 className="text-4xl font-bold tracking-tight">Built for <br/><span className="text-gray-600">Institutional Accuracy</span></h2>
-              <p className="text-gray-500 leading-relaxed">We replaced messy spreadsheets with a high-fidelity ledger designed for property owners and real estate partners.</p>
-              
-              <div className="flex items-center space-x-4 pt-4">
-                 <div className="flex -space-x-3">
-                    {[1,2,3].map(i => <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0a0a0a] bg-gray-800" />)}
-                 </div>
-                 <p className="text-xs font-bold uppercase tracking-widest text-gray-500">Trusted by 500+ Owners</p>
-              </div>
-           </div>
-
-           <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              
-              <div className="group card p-10 space-y-8 hover:bg-white/[0.03] transition-all duration-500 border-white/5 hover:border-indigo-500/20">
-                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Activity className="w-7 h-7 text-indigo-400" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white">Dynamic Calculations</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Real-time computation of outstanding principal and pre-EMI interest as the bank releases funds.
-                  </p>
-                </div>
-              </div>
-
-              <div className="group card p-10 space-y-8 hover:bg-white/[0.03] transition-all duration-500 border-white/5 hover:border-orange-500/20">
-                <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Zap className="w-7 h-7 text-orange-400" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white">Scenario Forecasting</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Model lump-sum prepayments and visualize your &quot;Interest Saved&quot; metric across the loan lifecycle.
-                  </p>
-                </div>
-              </div>
-
-              <div className="group card p-10 space-y-8 hover:bg-white/[0.03] transition-all duration-500 border-white/5 hover:border-green-500/20">
-                <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Shield className="w-7 h-7 text-green-400" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white">Fiscal Compliance</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Generate structured PDF ledgers ready for tax filing and annual financial audits.
-                  </p>
-                </div>
-              </div>
-
-              <div className="group card p-10 space-y-8 hover:bg-white/[0.03] transition-all duration-500 border-white/5 hover:border-blue-500/20">
-                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Star className="w-7 h-7 text-blue-400" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-white">Partner Portal</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Dedicated dashboards for contractors to manage milestones and client payment cycles.
-                  </p>
-                </div>
-              </div>
-
-           </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8 lg:gap-5">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <Reveal key={feature.title} delay={index * 60}>
+                    <article className="card-interactive h-full p-6 sm:p-7">
+                      <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--primary-muted)] text-indigo-400">
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </div>
+                      <h3 className="text-white">{feature.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Footer Branding */}
-      <footer className="max-w-7xl mx-auto px-6 lg:px-8 py-20 border-t border-white/5 text-center space-y-8">
-         <div className="flex justify-center items-center space-x-3 opacity-40">
-            <Hexagon className="w-6 h-6" />
-            <span className="font-bold tracking-tighter">FINFLOW</span>
-         </div>
-         <p className="text-xs text-gray-600 font-mono tracking-widest uppercase">&copy; 2026 Architectural Finance Lab</p>
-      </footer>
+      <section className="section-pad pb-8">
+        <Reveal>
+          <div className="page-container">
+            <div className="card-interactive flex flex-col items-start gap-6 border-indigo-500/20 bg-gradient-to-br from-indigo-500/[0.08] to-transparent p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+              <div className="max-w-xl">
+                <h2 className="text-2xl sm:text-3xl">
+                  Ready to replace the spreadsheet?
+                </h2>
+                <p className="mt-2 text-[var(--muted)]">
+                  Set up your project in minutes. Log disbursements as they
+                  happen and watch pre-EMI stay predictable.
+                </p>
+              </div>
+              <Link
+                href="/signin"
+                className="btn-primary shrink-0 px-8 py-3"
+              >
+                Create account
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </section>
 
+      <Footer />
     </div>
   );
 }
